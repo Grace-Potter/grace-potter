@@ -104,7 +104,17 @@ async function seed() {
 
   console.log(`seeded ${products.length} products`)
 
-  console.log(`seeded successfully`)
+  // make one pending order for the first user
+  const order = await Order.create({})
+  await users[0].addOrder(order)
+  await Promise.all([
+    order.addProduct(products[0]),
+    order.addProduct(products[1]),
+    order.addProduct(products[2]),
+    order.addProduct(products[3])
+  ])
+
+  console.log(green(`seeded successfully`))
 }
 
 // We've separated the `seed` function from the `runSeed` function.
