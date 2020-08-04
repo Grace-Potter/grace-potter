@@ -1,10 +1,11 @@
 'use strict'
 
 const {green, red} = require('chalk')
+const loremIpsum = require('lorem-ipsum').loremIpsum
 const db = require('../server/db')
 const {User, Product} = require('../server/db/models')
 
-products = [
+let products = [
   {
     name: 'ME OK Mug',
     price: 55.0,
@@ -78,6 +79,8 @@ products = [
   }
 ]
 
+const users = []
+
 async function seed() {
   await db.sync({force: true})
   console.log('db synced!')
@@ -85,7 +88,7 @@ async function seed() {
   for (let i = 0; i < 6; i++) {
     const user = await User.create({
       email: `${loremIpsum({count: 1, units: 'word'})}@fsa.com`,
-      password: password,
+      password: 'password',
       firstName: loremIpsum({count: 1, units: 'word'}),
       lastName: loremIpsum({count: 1, units: 'word'})
     })
