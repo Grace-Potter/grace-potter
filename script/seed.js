@@ -3,7 +3,7 @@
 const {green, red} = require('chalk')
 const loremIpsum = require('lorem-ipsum').loremIpsum
 const db = require('../server/db')
-const {User, Product} = require('../server/db/models')
+const {User, Product, Order} = require('../server/db/models')
 
 let products = [
   {
@@ -97,10 +97,10 @@ async function seed() {
 
   console.log(`seeded ${users.length} users`)
 
-  products = products.map(async item => {
-    const instance = Product.create(item)
-    return instance
-  })
+  for (let i = 0; i < products.length; i++) {
+    const instance = await Product.create(products[i])
+    products[i] = instance
+  }
 
   console.log(`seeded ${products.length} products`)
 
