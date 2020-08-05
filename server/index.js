@@ -54,19 +54,35 @@ const createApp = () => {
   // session middleware with passport
   app.use(
     session({
-      secret: process.env.SESSION_SECRET || 'my best friend is Cody',
+      secret: process.env.GOOGLE_CLIENT_SECRET,
       store: sessionStore,
       resave: false,
       saveUninitialized: false
     })
   )
+  /*
+    if !session.cookie.isLoggedIn:
+    if !session.cookie.guestId:
+      session.cookie.guestId = generateGuestId()
+    else:
+      use session.cookie.guestId
+  else:
+use session.cookie.userId
+    */
+
+  app.use((req, res, next) => {
+    req.session.cookie.isLoggedIn = false
+    req.session.cookie.guestId = null
+    console.log('SESSION: ', req.session)
+    next()
+  })
+
   app.use(passport.initialize())
   app.use(passport.session())
 
   // auth and api routes
   app.use('/auth', require('./auth'))
   app.use('/api', require('./api'))
-
   // static file-serving middleware
   app.use(express.static(path.join(__dirname, '..', 'public')))
 

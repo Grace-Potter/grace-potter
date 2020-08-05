@@ -62,6 +62,12 @@ export const logout = () => async dispatch => {
 export default function(state = defaultUser, action) {
   switch (action.type) {
     case GET_USER:
+      if (action.user.keys.length === 0) {
+        if (!window.localStorage.userId) {
+          window.localStorage.userId = 1 //generateUserId()
+        }
+        action.user = {id: window.localStorage.userId}
+      }
       return action.user
     case REMOVE_USER:
       return defaultUser
