@@ -5,6 +5,7 @@ import fetchProducts from '../store/allProducts'
 
 export class AllProducts extends React.Component {
   componentDidMount() {
+    console.log('mounted')
     this.props.getProducts()
   }
 
