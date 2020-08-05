@@ -3,18 +3,18 @@ const db = require('../db')
 
 const Product = db.define('product', {
   name: {
-    type: Sequelize.STRING
-    // allowNull: false,
+    type: Sequelize.STRING,
+    allowNull: false
   },
   description: {
     type: Sequelize.TEXT
   },
   price: {
-    type: Sequelize.FLOAT
-    // allowNull: false,
-    // validate: {
-    //   isEmpty: false,
-    // },
+    type: Sequelize.INTEGER,
+    allowNull: false,
+    validate: {
+      isEmpty: false
+    }
   },
   quantity: {
     type: Sequelize.INTEGER,
