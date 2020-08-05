@@ -2,11 +2,11 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 
 const ProductCard = props => {
-  const {name, imageUrl} = props
+  const {name, imageUrl, id} = props
   return (
     <div>
       <img src={imageUrl} />
-      <Link to="/temp">{name}</Link>
+      <Link to={`/products/${id}`}>{name}</Link>
     </div>
   )
 }
