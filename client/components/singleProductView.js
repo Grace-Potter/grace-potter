@@ -14,14 +14,20 @@ class singleProductView extends Component {
     super()
   }
   componentDidMount() {
-    const id = 2
+    const id = this.props.match.params.productId
     this.props.fetchProduct(id)
   }
   render() {
     console.log('this.props.state', this.props.state)
+    console.log('match params', this.props.match.params)
+    const product = this.props.state
     return (
       <div>
-        <h2>Single Product Name</h2>
+        <img src={product.imageUrl} />
+        <h2>{product.name}</h2>
+        <div>Description: {product.description}</div>
+        <div>Price: {`$${product.price}`}</div>
+        <div>Qty: {product.quantity}</div>
       </div>
     )
   }
