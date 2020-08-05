@@ -1,9 +1,25 @@
-import React from 'react'
+import React, {Component} from 'react'
 import {connect} from 'react-redux'
 
-const singleItemView = props => {
-  console.log('props.state', props.state)
-  return <div>hello single Item</div>
+/* 
+    name: 'ME OK Mug',
+    price: 55.0,
+    quantity: 5,
+    description: 'A wheel thrown and hand painted mug by Marian Bull',
+    imageUrl: 'images/MeOk.jpg'
+*/
+class singleItemView extends Component {
+  constructor() {
+    super()
+  }
+  render() {
+    console.log('this.props.state', this.props.state)
+    return (
+      <div>
+        <h2>Single Item Name</h2>
+      </div>
+    )
+  }
 }
 
 const mapStateToProps = reducerState => ({
