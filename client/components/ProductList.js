@@ -8,7 +8,7 @@ const ProductList = props => {
       {!products.lengt ? (
         products.map(product => (
           <li key={product.id}>
-            <ProductCard />
+            <ProductCard {...product} />
           </li>
         ))
       ) : (

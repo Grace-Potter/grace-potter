@@ -1,7 +1,14 @@
 import React from 'react'
+import {Link} from 'react-router-dom'
 
 const ProductCard = props => {
-  return <h1>Card Placeholder</h1>
+  const {name, imageUrl} = props
+  return (
+    <div>
+      <img src={imageUrl} />
+      <Link to="/temp">{name}</Link>
+    </div>
+  )
 }
 
 export default ProductCard
