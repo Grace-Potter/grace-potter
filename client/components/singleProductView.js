@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
+import {fetchProduct} from '../store/singleProduct'
 
 /* 
     name: 'ME OK Mug',
@@ -11,6 +12,10 @@ import {connect} from 'react-redux'
 class singleProductView extends Component {
   constructor() {
     super()
+  }
+  componentDidMount() {
+    const id = 2
+    this.props.fetchProduct(id)
   }
   render() {
     console.log('this.props.state', this.props.state)
@@ -26,4 +31,8 @@ const mapStateToProps = reducerState => ({
   state: reducerState.singleProduct.testState
 })
 
-export default connect(mapStateToProps)(singleProductView)
+const mapDispatchToProps = dispatch => ({
+  fetchProduct: productId => dispatch(fetchProduct(productId))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(singleProductView)
