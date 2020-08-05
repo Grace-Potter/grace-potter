@@ -61,7 +61,7 @@ let products = [
     price: 160.0,
     quantity: 3,
     description: 'Hand built by Katie Burk',
-    imageUrl: 'images/KFB_vase_3.jpg'
+    imageUrl: 'images/KFB_vase_3.png'
   },
   {
     name: 'Vase',
