@@ -1,11 +1,10 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import ProductList from './ProductList'
-import fetchProducts from '../store/allProducts'
+import {fetchProducts} from '../store/allProducts'
 
 export class AllProducts extends React.Component {
   componentDidMount() {
-    console.log('mounted')
     this.props.getProducts()
   }
 
