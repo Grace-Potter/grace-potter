@@ -19,11 +19,10 @@ class singleProductView extends Component {
   }
   render() {
     console.log('this.props.state', this.props.state)
-    console.log('match params', this.props.match.params)
     const product = this.props.state
     return (
       <div>
-        <img src={product.imageUrl} />
+        <img src={'/' + product.imageUrl} />
         <h2>{product.name}</h2>
         <div>Description: {product.description}</div>
         <div>Price: {`$${product.price}`}</div>
