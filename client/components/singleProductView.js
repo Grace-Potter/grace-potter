@@ -8,7 +8,7 @@ import {connect} from 'react-redux'
     description: 'A wheel thrown and hand painted mug by Marian Bull',
     imageUrl: 'images/MeOk.jpg'
 */
-class singleItemView extends Component {
+class singleProductView extends Component {
   constructor() {
     super()
   }
@@ -16,14 +16,14 @@ class singleItemView extends Component {
     console.log('this.props.state', this.props.state)
     return (
       <div>
-        <h2>Single Item Name</h2>
+        <h2>Single Product Name</h2>
       </div>
     )
   }
 }
 
 const mapStateToProps = reducerState => ({
-  state: reducerState.singleItem.testState
+  state: reducerState.singleProduct.testState
 })
 
-export default connect(mapStateToProps)(singleItemView)
+export default connect(mapStateToProps)(singleProductView)
