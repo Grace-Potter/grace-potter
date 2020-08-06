@@ -31,17 +31,8 @@ class Routes extends Component {
         <Route path="/signup" component={Signup} />
         <Route path="/products/:productId" component={SingleProductView} />
         <Route path="/products" component={AllProducts} />
-        {isLoggedIn && (
-          <Switch>
-            {/* Routes placed here are only available after logging in */}
-            <Route path="/home" component={UserHome} />
-          </Switch>
-        )}
-        {isAdmin && (
-          <Switch>
-            <Route path="/admin-portal" component={AdminPortal} />
-          </Switch>
-        )}
+        {isLoggedIn && <Route path="/home" component={UserHome} />}
+        {isAdmin && <Route path="/admin-portal" component={AdminPortal} />}
         {/* Displays our Login component as a fallback */}
         <Route component={Login} />
       </Switch>
@@ -57,7 +48,7 @@ const mapState = state => {
     // Being 'logged in' for our purposes will be defined has having a state.user that has a truthy id.
     // Otherwise, state.user will be an empty object, and state.user.id will be falsey
     isLoggedIn: !!state.user.id,
-    isAdmin: state.user.isAdmin
+    isAdmin: !!state.user.isAdmin
   }
 }
 
