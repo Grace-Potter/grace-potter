@@ -95,6 +95,13 @@ async function seed() {
     users.push(user)
   }
 
+  const admin = await User.create({
+    email: 'admin@email.com',
+    password: 'babybear2020',
+    isAdmin: true
+  })
+  users.push(admin)
+
   console.log(`seeded ${users.length} users`)
 
   for (let i = 0; i < products.length; i++) {
