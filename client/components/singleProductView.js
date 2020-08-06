@@ -22,7 +22,7 @@ class singleProductView extends Component {
     const product = this.props.state
     return (
       <div>
-        <img src={'/' + product.imageUrl} />
+        <img src={product.imageUrl} />
         <h2>{product.name}</h2>
         <div>Description: {product.description}</div>
         <div>Price: {`$${product.price}`}</div>
