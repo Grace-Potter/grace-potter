@@ -4,6 +4,7 @@ import axios from 'axios'
  * ACTION TYPES
  */
 const GET_CART = 'GET_CART'
+const DELETE_CART_ITEM = 'DELETE_CART_ITEM'
 
 /**
  * ACTION CREATORS
@@ -11,6 +12,11 @@ const GET_CART = 'GET_CART'
 const getCart = cart => ({
   type: GET_CART,
   cart
+})
+
+const deleteCartItem = item => ({
+  type: DELETE_CART_ITEM,
+  item
 })
 
 /**
