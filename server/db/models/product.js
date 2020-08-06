@@ -13,7 +13,6 @@ const Product = db.define('product', {
     type: Sequelize.INTEGER,
     allowNull: false,
     validate: {
-      isEmpty: false,
       min: 0
     }
   },
