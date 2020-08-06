@@ -24,7 +24,7 @@ router.get('/:productId', async (req, res, next) => {
 // delete product by id
 router.delete('/:productId', async (req, res, next) => {
   try {
-    await Product.destroy({where: {id: req.params.ProductId}})
+    await Product.destroy({where: {id: req.params.productId}})
     res.sendStatus(200)
   } catch (err) {
     next(err)

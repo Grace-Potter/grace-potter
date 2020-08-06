@@ -54,7 +54,7 @@ export default (state = initialState, action) => {
       return action.products
 
     case DELETE_PRODUCT:
-      return state.products.filter(product => product.id !== action.productId)
+      return state.filter(product => product.id !== action.productId)
 
     default:
       return state
