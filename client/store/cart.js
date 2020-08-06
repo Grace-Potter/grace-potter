@@ -31,6 +31,15 @@ export const fetchCart = () => async dispatch => {
   }
 }
 
+// export const thunkDeleteCartItem = () => async dispatch => {
+//   try {
+//     let {data} = await axios.get(`/api/`)
+//     dispatch(deleteCartItem(data))
+//   } catch (error) {
+//     console.log(error)
+//   }
+// }
+
 /**
  * REDUCER
  */

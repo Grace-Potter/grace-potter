@@ -8,6 +8,7 @@ class checkoutPage extends React.Component {
     super()
     this.handleCheckout = this.handleCheckout.bind(this)
     this.handleDelete = this.handleDelete.bind(this)
+    this.handleChange = this.handleChange.bind(this)
   }
   componentDidMount() {
     this.props.fetchCart()
@@ -21,6 +22,10 @@ class checkoutPage extends React.Component {
     console.log('delete handler works')
   }
 
+  handleChange(event) {
+    console.log('changing', event.target.value, event.target.id)
+  }
+
   render() {
     return (
       <div>
@@ -29,6 +34,7 @@ class checkoutPage extends React.Component {
           cart={this.props.cart}
           handleCheckout={this.handleCheckout}
           handleDelete={this.handleDelete}
+          handleChange={this.handleChange}
         />
       </div>
     )
