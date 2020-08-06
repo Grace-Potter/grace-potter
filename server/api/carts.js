@@ -1,26 +1,47 @@
 const router = require('express').Router()
-const {Order} = require('../db/models')
-const {User} = require('../db/models')
+const {Order, Product, OrderItem} = require('../db/models')
 module.exports = router
 
-//JA: Currently retrieves all items even if the item is out of stock. Will have to decide if this is expected.""
+// will use to get history of all orders made by this user Id
+//incl. one in progresss
 router.get('/:userId', async (req, res, next) => {
   try {
-    const products = await Order.findAll({
+    const orders = await Order.findAll({
       where: {
-        status: 'InProgress'
+        userId: req.params.userId
       }
-    })
-    res.json(products)
+    }) // || localStorage.cart
+
+    res.json(orders)
   } catch (err) {
     next(err)
   }
 })
 
-router.get('/:productId', async (req, res, next) => {
+// will use to get the current cart Id
+
+router.get('/:userId/currentCart/:cartId', async (req, res, next) => {
   try {
-    const product = await Product.findByPk(req.params.productId)
-    res.json(product)
+    //current cart (i.e. order in progress)
+    const order = await Order.findAll({
+      where: {
+        id: req.params.userId,
+        status: 'InProgress'
+      }
+    })
+
+    //a list of Product IDs in the current cart, joined with
+    //their product price, description, etc.
+    const orderList = await OrderItem.findAll({
+      include: {
+        model: Product,
+        where: {
+          orderId: order.id
+        }
+      }
+    }) // || localStorage.cart
+
+    res.json(orderList)
   } catch (err) {
     next(err)
   }
