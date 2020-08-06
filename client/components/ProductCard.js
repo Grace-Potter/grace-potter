@@ -8,7 +8,7 @@ const ProductCard = props => {
       <img src={imageUrl} />
       <Link to={`/products/${id}`}>{name}</Link>
       {fromPortal && (
-        <Link to={`/admin/manageProducts/${id}`}>
+        <Link to={`/admin/manageproducts/${id}`}>
           <button type="button">edit</button>
         </Link>
       )}
