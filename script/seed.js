@@ -94,6 +94,9 @@ async function seed() {
     })
     users.push(user)
   }
+  // const user = await User.create({
+  //   email: 'admin@email.'
+  // })
 
   console.log(`seeded ${users.length} users`)
 
