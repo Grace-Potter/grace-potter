@@ -1,15 +1,15 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import CartList from './CartList'
 
 class checkoutPage extends React.Component {
   componentDidMount() {}
 
   render() {
-    console.log(this.props.cart)
     return (
       <div>
         <h1>Shopping Cart</h1>
-        {/* <ProductList products={this.props.products} /> */}
+        <CartList cart={this.props.cart} />
       </div>
     )
   }
