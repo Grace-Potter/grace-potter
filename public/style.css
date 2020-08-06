@@ -30,6 +30,12 @@ li img {
   height: auto;
 }
 
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .row-wrap {
   display: flex;
   flex-direction: row;

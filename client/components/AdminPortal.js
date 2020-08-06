@@ -12,7 +12,10 @@ class AdminPortal extends React.Component {
           <Link to="/admin-portal/manageusers">Manage Users</Link>
         </nav>
         <Switch>
-          <Route path="/admin-portal/manageproducts" component={AllProducts} />
+          <Route
+            path="/admin-portal/manageproducts"
+            render={props => <AllProducts {...props} fromPortal={true} />}
+          />
           <Route
             path="/admin-portal/manageproducts/:productId"
             component={SingleProductView}

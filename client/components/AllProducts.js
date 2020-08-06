@@ -12,7 +12,10 @@ export class AllProducts extends React.Component {
     return (
       <div>
         <h1>All Products</h1>
-        <ProductList products={this.props.products} />
+        <ProductList
+          products={this.props.products}
+          fromPortal={this.props.fromPortal}
+        />
       </div>
     )
   }

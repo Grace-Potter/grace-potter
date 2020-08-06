@@ -2,14 +2,16 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 
 const ProductCard = props => {
-  const {name, imageUrl, id} = props
-  console.log(imageUrl)
+  const {name, imageUrl, id, fromPortal} = props
   return (
-    <div>
-      <div>
-        <img src={imageUrl} />
-      </div>
+    <div className="card">
+      <img src={imageUrl} />
       <Link to={`/products/${id}`}>{name}</Link>
+      {fromPortal && (
+        <Link to={`/admin/manageProducts/${id}`}>
+          <button type="button">edit</button>
+        </Link>
+      )}
     </div>
   )
 }
