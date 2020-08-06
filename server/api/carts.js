@@ -20,28 +20,37 @@ router.get('/:userId', async (req, res, next) => {
 
 // will use to get the current cart Id
 
-router.get('/:userId/currentCart/:cartId', async (req, res, next) => {
+router.get('/:userId/currentCart/', async (req, res, next) => {
   try {
     //current cart (i.e. order in progress)
     const order = await Order.findAll({
+      include: {all: true},
       where: {
         id: req.params.userId,
         status: 'InProgress'
       }
     })
+    res.json(order)
+  } catch (err) {
+    next(err)
+  }
+})
 
-    //a list of Product IDs in the current cart, joined with
-    //their product price, description, etc.
-    const orderList = await OrderItem.findAll({
-      include: {
-        model: Product,
-        where: {
-          orderId: order.id
-        }
+router.post('/:userId/currentCart/:productId', async (req, res, next) => {
+  try {
+    //current cart in progress
+    const order = await Order.findAll({
+      where: {
+        userId: req.params.userId,
+        status: 'InProgress'
       }
-    }) // || localStorage.cart
+    })
 
-    res.json(orderList)
+    const addToCart = await OrderItem.create({
+      productId: req.params.productId,
+      orderId: order[0].id
+    })
+    res.json(addToCart)
   } catch (err) {
     next(err)
   }
