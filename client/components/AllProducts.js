@@ -11,7 +11,14 @@ export class AllProducts extends React.Component {
   render() {
     return (
       <div>
-        <h1>All Products</h1>
+        <header>
+          <h1>All Products</h1>
+          {this.props.fromPortal && (
+            <button type="button" onClick={() => console.log('Click!')}>
+              Add Product
+            </button>
+          )}
+        </header>
         <ProductList
           products={this.props.products}
           fromPortal={this.props.fromPortal}
