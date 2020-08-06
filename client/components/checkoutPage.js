@@ -1,9 +1,12 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import CartList from './CartList'
+import {fetchCart} from '../store/cart'
 
 class checkoutPage extends React.Component {
-  componentDidMount() {}
+  componentDidMount() {
+    this.props.fetchCart()
+  }
 
   render() {
     return (
@@ -19,8 +22,8 @@ const mapState = state => ({
   cart: state.cart.cart
 })
 
-// const mapDispatch = dispatch => ({
-//   getProducts: () => dispatch(fetchProducts())
-// })
+const mapDispatch = dispatch => ({
+  fetchCart: () => dispatch(fetchCart())
+})
 
-export default connect(mapState)(checkoutPage)
+export default connect(mapState, mapDispatch)(checkoutPage)

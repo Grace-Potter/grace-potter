@@ -1,36 +1,42 @@
+import axios from 'axios'
+
+/**
+ * ACTION TYPES
+ */
+const GET_CART = 'GET_CART'
+
+/**
+ * ACTION CREATORS
+ */
+const getCart = cart => ({
+  type: GET_CART,
+  cart
+})
+
+/**
+ * THUNK CREATORS
+ */
+export const fetchCart = () => async dispatch => {
+  try {
+    let {data} = await axios.get(`/api/products`) // This route is a placeholder until the cart routes become available
+    dispatch(getCart(data))
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 /**
  * REDUCER
  */
 const initialState = {
-  cart: [
-    {
-      id: 1,
-      name: 'ME OK Mug',
-      price: 55.0,
-      quantity: 5,
-      description: 'A wheel thrown and hand painted mug by Marian Bull',
-      imageUrl: 'images/MeOk.jpg'
-    },
-    {
-      id: 2,
-      name: 'MB x HB Phone Box II',
-      price: 95.0,
-      quantity: 1,
-      description:
-        'Sleeping place or coffin or resting place for your phone. Hand made by Marian Bull and painted by Halith Bates',
-      imageUrl: 'images/phone-box.jpg'
-    },
-    {
-      id: 3,
-      name: 'Kohiki Mug',
-      price: 55.0,
-      quantity: 5,
-      description: 'Kohiki (white slip) mug by Akira Satake',
-      imageUrl: 'images/kohiki-mug.jpg'
-    }
-  ]
+  cart: []
 }
 
 export default function(state = initialState, action) {
-  return state
+  switch (action.type) {
+    case GET_CART:
+      return {...state, cart: action.cart}
+    default:
+      return state
+  }
 }

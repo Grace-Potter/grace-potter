@@ -5,7 +5,7 @@ const ProductList = props => {
   const {products} = props
   return (
     <ul>
-      {!products.length ? (
+      {!products.lengt ? (
         products.map(product => (
           <li key={product.id}>
             <ProductCard {...product} />
