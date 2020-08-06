@@ -7,15 +7,12 @@ const CartList = props => {
     <ul>
       {cart.length ? (
         <li>
+          <button onClick={() => props.handleCheckout()}>Checkout</button>
           {cart.map(product => (
             <li key={product.id}>
               <CartItemCard {...product} />
             </li>
           ))}
-          <li>
-            <button>Checkout</button>
-            <button>Delete all items from cart</button>
-          </li>
         </li>
       ) : (
         <h3>No items in cart</h3>

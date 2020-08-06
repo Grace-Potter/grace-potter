@@ -2,7 +2,7 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 
 const CartItemCard = props => {
-  const {name, imageUrl, id} = props
+  const {name, imageUrl, id, price} = props
   return (
     <div>
       <img src={imageUrl} />
@@ -15,6 +15,7 @@ const CartItemCard = props => {
         <option value="4">4</option>
         <option value="5">5</option>
       </select>
+      <>Placeholder Price: ${price}</>
     </div>
   )
 }
