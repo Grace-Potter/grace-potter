@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom'
 
 const ProductCard = props => {
   const {name, imageUrl, id} = props
+  console.log(imageUrl)
   return (
     <div>
       <div>
