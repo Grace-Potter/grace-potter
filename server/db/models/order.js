@@ -8,14 +8,6 @@ const Order = db.define('order', {
   }
 })
 
-Order.findInProgress = function() {
-  return this.findAll({
-    where: {
-      status: 'InProgress'
-    }
-  })
-}
-
 module.exports = Order
 
 /*
