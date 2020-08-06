@@ -10,7 +10,7 @@ const CartList = props => {
           <button onClick={() => props.handleCheckout()}>Checkout</button>
           {cart.map(product => (
             <li key={product.id}>
-              <CartItemCard {...product} />
+              <CartItemCard {...product} handleDelete={props.handleDelete} />
             </li>
           ))}
         </li>

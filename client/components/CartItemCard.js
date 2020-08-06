@@ -7,7 +7,7 @@ const CartItemCard = props => {
     <div>
       <img src={imageUrl} />
       <Link to={`/products/${id}`}>{name}</Link>
-      <button>Delete</button>
+      <button onClick={() => props.handleDelete()}>Delete</button>
       <select name="qty" id="quantity">
         <option value="1">1</option>
         <option value="2">2</option>
