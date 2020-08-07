@@ -12,10 +12,14 @@ import {fetchProduct} from '../store/singleProduct'
 class singleProductView extends Component {
   constructor() {
     super()
+    this.handleAddToCart = this.handleAddToCart.bind(this)
   }
   componentDidMount() {
     const id = this.props.match.params.productId
     this.props.fetchProduct(id)
+  }
+  handleAddToCart() {
+    console.log('addToCart button works')
   }
   render() {
     console.log('this.props.state', this.props.state)
@@ -27,6 +31,7 @@ class singleProductView extends Component {
         <div>Description: {product.description}</div>
         <div>Price: {`$${product.price}`}</div>
         <div>Qty: {product.quantity}</div>
+        <button onClick={() => this.handleAddToCart()}>Add to cart</button>
       </div>
     )
   }
