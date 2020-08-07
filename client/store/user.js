@@ -1,5 +1,6 @@
 import axios from 'axios'
 import history from '../history'
+const crypto = require('crypto')
 
 /**
  * ACTION TYPES
@@ -56,12 +57,24 @@ export const logout = () => async dispatch => {
   }
 }
 
+//generate UserId
+const generateSalt = () => {
+  const userId = crypto.randomBytes(16).toString('base64')
+  return userId
+}
+
 /**
  * REDUCER
  */
 export default function(state = defaultUser, action) {
   switch (action.type) {
     case GET_USER:
+      if (!action.user.keys) {
+        if (!window.localStorage.userId) {
+          const salt = generateSalt()
+          window.localStorage.setItem('userId', salt)
+        }
+      }
       return action.user
     case REMOVE_USER:
       return defaultUser
