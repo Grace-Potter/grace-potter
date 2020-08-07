@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {ProductForm} from './index'
-import {postProduct} from '../store/singleProduct'
+import {postProduct} from '../store/allProducts'
 
 class AddProduct extends React.Component {
   constructor(props) {
