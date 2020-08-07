@@ -10,7 +10,12 @@ label {
   display: block;
 }
 
-nav a {
+nav * {
+  display: inline-block;
+  margin: 1em;
+}
+
+header * {
   display: inline-block;
   margin: 1em;
 }
@@ -18,4 +23,25 @@ nav a {
 form div {
   margin: 1em;
   display: inline-block;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li img {
+  width: 150px;
+  height: auto;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.row-wrap {
+  display: flex;
+  flex-flow: row wrap;
 }
