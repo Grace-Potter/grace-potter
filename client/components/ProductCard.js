@@ -11,7 +11,7 @@ const ProductCard = props => {
       <Link to={`/products/${id}`}>{name}</Link>
       <div>
         {fromPortal && (
-          <Link to={`/admin/manageproducts/${id}`}>
+          <Link to={`/admin-portal/manageproducts/${id}`}>
             <button type="button">edit</button>
           </Link>
         )}

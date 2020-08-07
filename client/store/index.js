@@ -19,3 +19,4 @@ const store = createStore(reducer, middleware)
 export default store
 export * from './user'
 export * from './singleProduct'
+export * from './allProducts'

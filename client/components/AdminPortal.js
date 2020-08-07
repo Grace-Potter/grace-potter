@@ -1,6 +1,11 @@
 import React from 'react'
 import {Link, Switch, Route} from 'react-router-dom'
-import {AllProducts, SingleProductView, AddProduct} from './index'
+import {
+  AllProducts,
+  SingleProductView,
+  AddProduct,
+  UpdateProduct
+} from './index'
 
 class AdminPortal extends React.Component {
   render() {
@@ -19,7 +24,7 @@ class AdminPortal extends React.Component {
           />
           <Route
             path="/admin-portal/manageproducts/:productId"
-            component={SingleProductView}
+            component={UpdateProduct}
           />
           <Route
             path="/admin-portal/manageproducts"
