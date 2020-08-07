@@ -27,6 +27,7 @@ class singleProductView extends Component {
         <div>Description: {product.description}</div>
         <div>Price: {`$${product.price}`}</div>
         <div>Qty: {product.quantity}</div>
+        <button>Add to cart</button>
       </div>
     )
   }
