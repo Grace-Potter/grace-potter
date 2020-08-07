@@ -68,57 +68,45 @@ router.put('/:userId/currentCart/checkout', async (req, res, next) => {
   try {
     //current cart in progress
     const order = await Order.findAll({
+      include: {
+        all: true
+      },
       where: {
         userId: req.params.userId,
         status: 'InProgress'
       }
     })
 
-    //create array of all items to be checked out
-    const checkoutItems = Array.from(
-      await OrderItem.findAll({
-        where: {
-          orderId: order[0].id
-        }
-      })
-    )
-
     //update all inventory items
-    checkoutItems.forEach(async item => {
-      let product = await Product.findAll({
-        where: {
-          id: item.productId
-        }
-      })
-
+    order[0].dataValues.products.forEach(async item => {
       await Product.update(
         {
-          quantity: product[0].quantity - item.quantity
+          quantity: item.quantity - item.orderItem.quantity
         },
         {
           where: {
-            id: item.productId
+            id: item.orderItem.productId
           }
         }
       )
     })
 
     //changes cart status to Complete
-    // await Order.update(
-    //   {
-    //     status: 'Complete',
-    //   },
-    //   {
-    //     where: {
-    //       id: order[0].id,
-    //     },
-    //   }
-    // )
+    await Order.update(
+      {
+        status: 'Complete'
+      },
+      {
+        where: {
+          id: order[0].id
+        }
+      }
+    )
 
     //create a new cart that's status InProgress
-    // await Order.create({
-    //   userId: req.params.userId,
-    // })
+    await Order.create({
+      userId: req.params.userId
+    })
 
     res.sendStatus(201)
   } catch (err) {
