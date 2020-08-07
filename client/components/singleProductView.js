@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {fetchProduct} from '../store/singleProduct'
+import {thunkAddCartItem} from '../store/cart'
 
 /* 
     name: 'ME OK Mug',
@@ -42,7 +43,9 @@ const mapStateToProps = reducerState => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  fetchProduct: productId => dispatch(fetchProduct(productId))
+  fetchProduct: productId => dispatch(fetchProduct(productId)),
+  thunkAddCartItem: (userId, productId) =>
+    dispatch(thunkAddCartItem(userId, productId))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(singleProductView)
