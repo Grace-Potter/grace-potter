@@ -26,6 +26,11 @@ const deleteCartItem = deletedItem => ({
   deletedItem
 })
 
+const updateCartItem = updatedCart => ({
+  type: UPDATE_CART_ITEM,
+  updatedCart
+})
+
 /**
  * THUNK CREATORS
  */
@@ -63,6 +68,17 @@ export const thunkDeleteCartItem = userId => async dispatch => {
 //   try {
 //     await axios.delete(`/api/${userId}/currentCart`) // This route is a placeholder until delete cart route becomes available
 //     fetchCart()
+//   } catch (error) {
+//     console.log(error)
+//   }
+// }
+
+// export const thunkUpdateCartItem = (userId, productId) => async (dispatch) => {
+//   try {
+//     let {data: updatedItem} = await axios.post(
+//       `/${userId}/currentCart/${productId}`
+//     )
+//     dispatch(updateCartItem(updatedItem))
 //   } catch (error) {
 //     console.log(error)
 //   }

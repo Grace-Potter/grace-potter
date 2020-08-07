@@ -26,7 +26,6 @@ class singleProductView extends Component {
     // this.props.thunkAddCartItem(this.props.user.id, productId)
   }
   render() {
-    console.log('this.props.state', this.props.state)
     const product = this.props.state
     return (
       <div>
