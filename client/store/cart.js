@@ -6,6 +6,7 @@ import axios from 'axios'
 const GET_CART = 'GET_CART'
 const ADD_CART_ITEM = 'ADD_CART_ITEM'
 const DELETE_CART_ITEM = 'DELETE_CART_ITEM'
+const UPDATE_CART_ITEM = 'UPDATE_CART_ITEM'
 
 /**
  * ACTION CREATORS

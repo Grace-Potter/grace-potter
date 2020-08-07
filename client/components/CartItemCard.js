@@ -7,7 +7,7 @@ const CartItemCard = props => {
     <div>
       <img src={imageUrl} />
       <Link to={`/products/${id}`}>{name}</Link>
-      <button onClick={() => props.handleDelete()}>Delete</button>
+      <button onClick={() => props.handleDelete(id)}>Delete</button>
       <>
         <label htmlFor="qty">Qty:</label>
         <select name="qty" id={id} onChange={props.handleChange}>

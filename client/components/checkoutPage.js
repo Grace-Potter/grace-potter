@@ -19,9 +19,10 @@ class checkoutPage extends React.Component {
     console.log('user id:', this.props.user.id)
   }
 
-  handleDelete() {
+  handleDelete(id) {
     console.log('delete handler works')
     console.log('user id:', this.props.user.id)
+    console.log('product id: ', id)
   }
 
   handleChange(event) {
