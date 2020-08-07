@@ -2,6 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import ProductList from './ProductList'
 import {fetchProducts} from '../store/allProducts'
+import {Link} from 'react-router-dom'
 
 export class AllProducts extends React.Component {
   componentDidMount() {
@@ -14,12 +15,9 @@ export class AllProducts extends React.Component {
         <header>
           <h1>All Products</h1>
           {this.props.fromPortal && (
-            <button
-              type="button"
-              onClick={() => console.log('Make me do somehthing!')}
-            >
-              Add Product
-            </button>
+            <Link to="/admin-portal/manageproducts/addproduct">
+              <button type="button">Add Product</button>
+            </Link>
           )}
         </header>
         <ProductList

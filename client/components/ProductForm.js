@@ -17,12 +17,19 @@ const ProductForm = props => {
       <input name="name" type="text" value={name} onChange={handleChange} />
 
       <label htmlFor="price">Price</label>
-      <input name="price" type="number" value={price} onChange={handleChange} />
+      <input
+        name="price"
+        type="number"
+        min="0"
+        value={price}
+        onChange={handleChange}
+      />
 
       <label htmlFor="quantity">Quantity</label>
       <input
         name="quantity"
         type="number"
+        min="0"
         value={quantity}
         onChange={handleChange}
       />
@@ -30,7 +37,7 @@ const ProductForm = props => {
       <label htmlFor="imageUrl">Image URL</label>
       <input
         name="imageUrl"
-        type="text"
+        type="url"
         value={imageUrl}
         onChange={handleChange}
       />
