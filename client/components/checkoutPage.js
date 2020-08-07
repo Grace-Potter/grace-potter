@@ -16,14 +16,18 @@ class checkoutPage extends React.Component {
 
   handleCheckout() {
     console.log('checkout handler works')
+    console.log('user id:', this.props.user.id)
   }
 
   handleDelete() {
     console.log('delete handler works')
+    console.log('user id:', this.props.user.id)
   }
 
   handleChange(event) {
-    console.log('changing', event.target.value, event.target.id)
+    console.log('qty: ', event.target.value)
+    console.log('product id: ', event.target.id)
+    console.log('user id:', this.props.user.id)
   }
 
   render() {
@@ -42,7 +46,8 @@ class checkoutPage extends React.Component {
 }
 
 const mapState = state => ({
-  cart: state.cart.cart
+  cart: state.cart.cart,
+  user: state.user
 })
 
 const mapDispatch = dispatch => ({

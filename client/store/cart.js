@@ -14,31 +14,31 @@ const getCart = cart => ({
   cart
 })
 
-const deleteCartItem = item => ({
+const deleteCartItem = deletedItem => ({
   type: DELETE_CART_ITEM,
-  item
+  deletedItem
 })
 
 /**
  * THUNK CREATORS
  */
-export const fetchCart = () => async dispatch => {
+export const fetchCart = userId => async dispatch => {
   try {
-    let {data} = await axios.get(`/api/products`) // This route is a placeholder until the cart routes become available
+    let {data} = await axios.get(`/api/${userId}/currentCart`) // This route is a placeholder until the cart routes become available
     dispatch(getCart(data))
   } catch (error) {
     console.log(error)
   }
 }
 
-// export const thunkDeleteCartItem = () => async dispatch => {
-//   try {
-//     let {data} = await axios.get(`/api/`)
-//     dispatch(deleteCartItem(data))
-//   } catch (error) {
-//     console.log(error)
-//   }
-// }
+export const thunkDeleteCartItem = userId => async dispatch => {
+  try {
+    let {data: deletedItem} = await axios.delete(`/api/${userId}/currentCart`) // This route is a placeholder until delete cart route becomes available
+    dispatch(deleteCartItem(deletedItem))
+  } catch (error) {
+    console.log(error)
+  }
+}
 
 /**
  * REDUCER
@@ -51,6 +51,13 @@ export default function(state = initialState, action) {
   switch (action.type) {
     case GET_CART:
       return {...state, cart: action.cart}
+    case DELETE_CART_ITEM:
+      return {
+        ...state,
+        cart: state.cart.filter(item => {
+          return item.id !== action.deletedItem.id
+        })
+      }
     default:
       return state
   }
