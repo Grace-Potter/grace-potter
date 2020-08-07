@@ -19,8 +19,10 @@ class singleProductView extends Component {
     const id = this.props.match.params.productId
     this.props.fetchProduct(id)
   }
-  handleAddToCart() {
+  handleAddToCart(productId) {
     console.log('addToCart button works')
+    console.log('user id: ', this.props.user.id)
+    console.log('product id: ', productId)
   }
   render() {
     console.log('this.props.state', this.props.state)
@@ -32,14 +34,17 @@ class singleProductView extends Component {
         <div>Description: {product.description}</div>
         <div>Price: {`$${product.price}`}</div>
         <div>Qty: {product.quantity}</div>
-        <button onClick={() => this.handleAddToCart()}>Add to cart</button>
+        <button onClick={() => this.handleAddToCart(product.id)}>
+          Add to cart
+        </button>
       </div>
     )
   }
 }
 
 const mapStateToProps = reducerState => ({
-  state: reducerState.singleProduct.testState
+  state: reducerState.singleProduct.testState,
+  user: reducerState.user
 })
 
 const mapDispatchToProps = dispatch => ({
