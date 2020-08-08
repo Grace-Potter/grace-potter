@@ -10,10 +10,26 @@ class SingleUser extends React.Component {
   }
 
   render() {
-    const {firstName, lastName} = this.props.user
+    const {firstName, lastName, email, id, orders} = this.props.user
 
-    return (
-      <div>{this.props.user.id && <h1>{`${firstName} ${lastName}`}</h1>}</div>
+    return id ? (
+      <div>
+        <h1>{`${firstName} ${lastName}`}</h1>
+        <p>User id: {id}</p>
+        <p>Email: {email}</p>
+        <div>
+          <p>Orders:</p>
+          <ul>
+            {orders.map(order => (
+              <li key={order.id}>
+                id: {order.id} | status: {order.status}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    ) : (
+      <h1> Loading... </h1>
     )
   }
 }

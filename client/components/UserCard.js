@@ -3,11 +3,11 @@ import {Link} from 'react-router-dom'
 
 const UserCard = ({email, id}) => {
   return (
-    <l1>
+    <li>
       <Link to={`/admin-portal/manageusers/${id}`}>
         <h3>{email}</h3>
       </Link>
-    </l1>
+    </li>
   )
 }
 
