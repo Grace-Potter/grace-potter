@@ -5,7 +5,7 @@ const ProductList = props => {
   const {products, fromPortal} = props
   return (
     <ul className="row-wrap">
-      {!products.lengt ? (
+      {products.length ? (
         products.map(product => (
           <li key={product.id}>
             <ProductCard {...product} fromPortal={fromPortal} />
