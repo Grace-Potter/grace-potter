@@ -22,6 +22,11 @@ const getAllUsers = users => ({
   users
 })
 
+const getSingleUser = user => ({
+  type: GET_SINGLE_USER,
+  user
+})
+
 /**
  * THUNK CREATORS
  */
@@ -34,16 +39,30 @@ export const fetchUsers = () => async dispatch => {
   }
 }
 
+export const fetchSingleUser = userId => async dispatch => {
+  try {
+    const {data: user} = await axios.get(`/api/user/${userId}`)
+    dispatch(getSingleUser(user))
+  } catch (err) {
+    console.error(err)
+  }
+}
+
 /**
  * REDUCER
  */
-
 export default (state = initialState, action) => {
   switch (action.type) {
     case GET_ALL_USERS:
       return {
         ...state,
         allUsers: action.users
+      }
+
+    case GET_SINGLE_USER:
+      return {
+        ...state,
+        singleUser: action.user
       }
 
     default:
