@@ -1,6 +1,12 @@
 import React from 'react'
 import {Link, Switch, Route} from 'react-router-dom'
-import {AllProducts, AddProduct, UpdateProduct, AllUsers} from './index'
+import {
+  AllProducts,
+  AddProduct,
+  UpdateProduct,
+  AllUsers,
+  SingleUser
+} from './index'
 
 class AdminPortal extends React.Component {
   render() {
@@ -24,6 +30,11 @@ class AdminPortal extends React.Component {
           <Route
             path="/admin-portal/manageproducts"
             render={props => <AllProducts {...props} fromPortal={true} />}
+          />
+          <Route
+            exact
+            path="/admin-portal/manageusers/:userId"
+            component={SingleUser}
           />
           <Route path="/admin-portal/manageusers" component={AllUsers} />
         </Switch>

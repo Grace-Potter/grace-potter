@@ -41,7 +41,7 @@ export const fetchUsers = () => async dispatch => {
 
 export const fetchSingleUser = userId => async dispatch => {
   try {
-    const {data: user} = await axios.get(`/api/user/${userId}`)
+    const {data: user} = await axios.get(`/api/users/${userId}`)
     dispatch(getSingleUser(user))
   } catch (err) {
     console.error(err)
