@@ -15,20 +15,20 @@ class checkoutPage extends React.Component {
   }
 
   handleCheckout() {
-    console.log('checkout handler works')
-    console.log('user id:', this.props.user.id)
+    // console.log('checkout handler works')
+    // console.log('user id:', this.props.user.id)
   }
 
   handleDelete(id) {
-    console.log('delete handler works')
-    console.log('user id:', this.props.user.id)
-    console.log('product id: ', id)
+    // console.log('delete handler works')
+    // console.log('user id:', this.props.user.id)
+    // console.log('product id: ', id)
   }
 
   handleChange(event) {
-    console.log('qty: ', event.target.value)
-    console.log('product id: ', event.target.id)
-    console.log('user id:', this.props.user.id)
+    // console.log('qty: ', event.target.value)
+    // console.log('product id: ', event.target.id)
+    // console.log('user id:', this.props.user.id)
   }
 
   render() {
