@@ -74,7 +74,6 @@ const createApp = () => {
     }
     req.session.cookie.isLoggedIn = false
     req.session.cookie.guestId = null
-    console.log('SESSION: ', req.session)
     next()
   })
 
