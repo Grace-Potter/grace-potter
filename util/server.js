@@ -1,3 +1,5 @@
+const {green} = require('chalk')
+
 const handle404 = (trueFalse, message, status) => {
   if (!trueFalse) {
     const err = new Error(message || 'Not Found')
@@ -7,7 +9,7 @@ const handle404 = (trueFalse, message, status) => {
 }
 
 const checkAdmin = (req, res, next) => {
-  const user = req.session.user
+  const user = req.user
   if (user && user.isAdmin) {
     next()
   } else {
