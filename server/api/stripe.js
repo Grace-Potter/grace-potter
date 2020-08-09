@@ -4,7 +4,6 @@ const router = require('express').Router()
 const stripe = require('stripe')(
   'sk_test_51HEG04K8Jj6AqAF5FiEY3W0K2goOp4hP8snXTL75QPgmntI4llWLrzce0RQRydJ9hvlJ44dW0z5D7XFltybpE9Rs00YCODxb46'
 )
-require('dotenv').load()
 module.exports = router
 
 const stripeSecretKey = process.env.STRIPE_SECRET_KEY
@@ -31,7 +30,7 @@ router.get('/', async (req, res, next) => {
         'https://example.com/success?session_id={CHECKOUT_SESSION_ID}',
       cancelUrl: 'https://example.com/cancel'
     })
-    res.json(session)
+    res.json({sessionId: session.id})
   } catch (err) {
     next(err)
   }
