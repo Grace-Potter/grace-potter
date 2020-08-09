@@ -2,13 +2,13 @@ import React from 'react'
 import ProductCard from './ProductCard'
 
 const ProductList = props => {
-  const {products} = props
+  const {products, fromPortal} = props
   return (
-    <ul>
-      {!products.lengt ? (
+    <ul className="row-wrap">
+      {products.length ? (
         products.map(product => (
           <li key={product.id}>
-            <ProductCard {...product} />
+            <ProductCard {...product} fromPortal={fromPortal} />
           </li>
         ))
       ) : (
