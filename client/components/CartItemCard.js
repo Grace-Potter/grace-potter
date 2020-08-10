@@ -2,7 +2,7 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 
 const CartItemCard = props => {
-  const {name, imageUrl, id, price} = props
+  const {name, imageUrl, id, price, orderItem} = props
   return (
     <div>
       <img src={imageUrl} />
@@ -11,6 +11,9 @@ const CartItemCard = props => {
       <>
         <label htmlFor="qty">Qty:</label>
         <select name="qty" id={id} onChange={props.handleChange}>
+          <option value={orderItem.quantity} selected disabled hidden>
+            {orderItem.quantity}
+          </option>
           <option value={1}>1</option>
           <option value={2}>2</option>
           <option value={3}>3</option>

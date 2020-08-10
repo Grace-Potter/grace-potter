@@ -18,6 +18,17 @@ router.get('/:userId', userOrAdmin, async (req, res, next) => {
   }
 })
 
+// create cart for new user
+router.post('/:userId/newCart/', userOrAdmin, async (req, res, next) => {
+  try {
+    await Order.create({
+      userId: req.params.userId
+    })
+  } catch (err) {
+    next(err)
+  }
+})
+
 // get current cart
 router.get('/:userId/currentCart/', userOrAdmin, async (req, res, next) => {
   try {
@@ -65,6 +76,7 @@ router.get(
   }
 )
 
+// complete checkout
 router.put(
   '/:userId/currentCart/checkout',
   userOrAdmin,
@@ -131,10 +143,13 @@ router.post(
         }
       })
 
-      await OrderItem.create({
-        productId: req.params.productId,
-        orderId: order[0].id
+      await OrderItem.findOrCreate({
+        where: {
+          productId: req.params.productId,
+          orderId: order[0].id
+        }
       })
+
       res.sendStatus(201)
     } catch (err) {
       next(err)

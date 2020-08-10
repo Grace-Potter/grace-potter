@@ -2,7 +2,12 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {loadStripe} from '@stripe/stripe-js'
 import CartList from './CartList'
-import {fetchCart, thunkDeleteCartItem} from '../store/cart'
+import {
+  fetchCart,
+  thunkDeleteCartItem,
+  thunkUpdateCartItem,
+  thunkCheckoutCart
+} from '../store/cart'
 
 //const stripePromise = loadStripe(STRIPE_PUBLISHABLE_KEY)
 
@@ -14,12 +19,10 @@ class checkoutPage extends React.Component {
     this.handleChange = this.handleChange.bind(this)
   }
   componentDidMount() {
-    this.props.fetchCart()
+    this.props.fetchCart(this.props.user.id)
   }
 
-  async handleCheckout(event) {
-    // console.log('checkout handler works')
-    // console.log('user id:', this.props.user.id)
+  handleCheckout() {
     /*****************************
     ***** STRIPE INTEGRATION *****
 
@@ -36,32 +39,45 @@ class checkoutPage extends React.Component {
     // using `error.message`.
 
     ******************************/
+    // console.log('checkout handler works')
+    // console.log('user id:', this.props.user.id)
+    this.props.thunkCheckoutCart(this.props.user.id)
   }
 
-  handleDelete(id) {
+  handleDelete(productId) {
     // console.log('delete handler works')
     // console.log('user id:', this.props.user.id)
-    // console.log('product id: ', id)
+    // console.log('product id: ', productId)
+    this.props.thunkDeleteCartItem(this.props.user.id, productId)
   }
 
-  handleChange(event) {
+  handleChange() {
     // console.log('qty: ', event.target.value)
     // console.log('product id: ', event.target.id)
     // console.log('user id:', this.props.user.id)
+    this.props.thunkUpdateCartItem(
+      this.props.user.id,
+      event.target.id,
+      event.target.value
+    )
   }
 
   render() {
-    return (
-      <div>
-        <h1>Shopping Cart</h1>
-        <CartList
-          cart={this.props.cart}
-          handleCheckout={this.handleCheckout}
-          handleDelete={this.handleDelete}
-          handleChange={this.handleChange}
-        />
-      </div>
-    )
+    if (!this.props.cart[0]) {
+      return <h1>Loading</h1>
+    } else {
+      return (
+        <div>
+          <h1>Shopping Cart</h1>
+          <CartList
+            cart={this.props.cart[0].products}
+            handleCheckout={this.handleCheckout}
+            handleDelete={this.handleDelete}
+            handleChange={this.handleChange}
+          />
+        </div>
+      )
+    }
   }
 }
 
@@ -71,8 +87,12 @@ const mapState = state => ({
 })
 
 const mapDispatch = dispatch => ({
-  fetchCart: () => dispatch(fetchCart())
-  // thunkDeleteCartItem: () => dispatch(thunkDeleteCartItem())
+  fetchCart: userId => dispatch(fetchCart(userId)),
+  thunkDeleteCartItem: (userId, productId) =>
+    dispatch(thunkDeleteCartItem(userId, productId)),
+  thunkUpdateCartItem: (userId, productId, quantity) =>
+    dispatch(thunkUpdateCartItem(userId, productId, quantity)),
+  thunkCheckoutCart: userId => dispatch(thunkCheckoutCart(userId))
 })
 
 export default connect(mapState, mapDispatch)(checkoutPage)
