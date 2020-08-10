@@ -19,10 +19,11 @@ class checkoutPage extends React.Component {
     // console.log('user id:', this.props.user.id)
   }
 
-  handleDelete(id) {
+  handleDelete(productId) {
     // console.log('delete handler works')
     // console.log('user id:', this.props.user.id)
-    // console.log('product id: ', id)
+    // console.log('product id: ', productId)
+    this.props.thunkDeleteCartItem(this.props.user.id, productId)
   }
 
   handleChange(event) {
@@ -56,8 +57,9 @@ const mapState = state => ({
 })
 
 const mapDispatch = dispatch => ({
-  fetchCart: userId => dispatch(fetchCart(userId))
-  // thunkDeleteCartItem: () => dispatch(thunkDeleteCartItem())
+  fetchCart: userId => dispatch(fetchCart(userId)),
+  thunkDeleteCartItem: (userId, productId) =>
+    dispatch(thunkDeleteCartItem(userId, productId))
 })
 
 export default connect(mapState, mapDispatch)(checkoutPage)
