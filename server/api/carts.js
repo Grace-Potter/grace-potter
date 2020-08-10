@@ -1,16 +1,16 @@
 const router = require('express').Router()
 const {Order, Product, OrderItem} = require('../db/models')
+const {userOrAdmin} = require('../../util/server')
 module.exports = router
 
-// will use to get history of all orders made by this user Id
-//incl. one in progresss
-router.get('/:userId', async (req, res, next) => {
+// get history of all carts
+router.get('/:userId', userOrAdmin, async (req, res, next) => {
   try {
     const orders = await Order.findAll({
       where: {
         userId: req.params.userId
       }
-    }) // || localStorage.cart
+    })
 
     res.json(orders)
   } catch (err) {
@@ -18,11 +18,9 @@ router.get('/:userId', async (req, res, next) => {
   }
 })
 
-// will use to get the current cart Id
-
-router.get('/:userId/currentCart/', async (req, res, next) => {
+// get current cart
+router.get('/:userId/currentCart/', userOrAdmin, async (req, res, next) => {
   try {
-    //current cart (i.e. order in progress)
     const order = await Order.findAll({
       include: {all: true},
       where: {
@@ -36,101 +34,96 @@ router.get('/:userId/currentCart/', async (req, res, next) => {
   }
 })
 
-router.get('/:userId/currentCart/checkout', async (req, res, next) => {
-  try {
-    //current cart in progress
-    const order = await Order.findAll({
-      include: {
-        all: true
-      },
-      where: {
-        userId: req.params.userId,
-        status: 'InProgress'
-      }
-    })
+// check if all items about to be checked out are in stock
+router.get(
+  '/:userId/currentCart/checkout',
+  userOrAdmin,
+  async (req, res, next) => {
+    try {
+      const order = await Order.findAll({
+        include: {
+          all: true
+        },
+        where: {
+          userId: req.params.userId,
+          status: 'InProgress'
+        }
+      })
 
-    //make sure that you're not trying to check out more than what we have in inventory
-    let outOfStockItems = []
+      // return a list of all out of stock items
+      let outOfStockItems = []
+      order[0].dataValues.products.forEach(item => {
+        if (item.quantity < item.orderItem.quantity) {
+          outOfStockItems.push(item)
+        }
+      })
 
-    order[0].dataValues.products.forEach(item => {
-      if (item.quantity < item.orderItem.quantity) {
-        outOfStockItems.push(item)
-      }
-    })
-
-    res.json(outOfStockItems)
-  } catch (err) {
-    next(err)
+      res.json(outOfStockItems)
+    } catch (err) {
+      next(err)
+    }
   }
-})
+)
 
-router.put('/:userId/currentCart/checkout', async (req, res, next) => {
-  try {
-    //current cart in progress
-    const order = await Order.findAll({
-      where: {
-        userId: req.params.userId,
-        status: 'InProgress'
-      }
-    })
-
-    //create array of all items to be checked out
-    const checkoutItems = Array.from(
-      await OrderItem.findAll({
+router.put(
+  '/:userId/currentCart/checkout',
+  userOrAdmin,
+  async (req, res, next) => {
+    try {
+      const order = await Order.findAll({
+        include: {
+          all: true
+        },
         where: {
-          orderId: order[0].id
-        }
-      })
-    )
-
-    //update all inventory items
-    checkoutItems.forEach(async item => {
-      let product = await Product.findAll({
-        where: {
-          id: item.productId
+          userId: req.params.userId,
+          status: 'InProgress'
         }
       })
 
-      await Product.update(
+      //update all inventory items
+      order[0].dataValues.products.forEach(async item => {
+        await Product.update(
+          {
+            quantity: item.quantity - item.orderItem.quantity
+          },
+          {
+            where: {
+              id: item.orderItem.productId
+            }
+          }
+        )
+      })
+
+      // changes cart status to Complete
+      await Order.update(
         {
-          quantity: product[0].quantity - item.quantity
+          status: 'Complete'
         },
         {
           where: {
-            id: item.productId
+            id: order[0].id
           }
         }
       )
-    })
 
-    //changes cart status to Complete
-    // await Order.update(
-    //   {
-    //     status: 'Complete',
-    //   },
-    //   {
-    //     where: {
-    //       id: order[0].id,
-    //     },
-    //   }
-    // )
+      // create a new cart whose status is InProgress
+      await Order.create({
+        userId: req.params.userId
+      })
 
-    //create a new cart that's status InProgress
-    // await Order.create({
-    //   userId: req.params.userId,
-    // })
-
-    res.sendStatus(201)
-  } catch (err) {
-    next(err)
+      res.sendStatus(201)
+    } catch (err) {
+      next(err)
+    }
   }
-})
+)
 
+// add item to cart
 router.post(
   '/:userId/currentCart/product/:productId',
+  userOrAdmin,
   async (req, res, next) => {
     try {
-      //current cart in progress
       const order = await Order.findAll({
         where: {
           userId: req.params.userId,
@@ -149,8 +142,10 @@ router.post(
   }
 )
 
+// update quantity of specific product in cart
 router.put(
   '/:userId/currentCart/product/:productId/quantity/:quantity',
+  userOrAdmin,
   async (req, res, next) => {
     try {
       //current cart in progress
@@ -179,8 +174,10 @@ router.put(
   }
 )
 
+// delete item from cart
 router.delete(
   '/:userId/currentCart/product/:productId',
+  userOrAdmin,
   async (req, res, next) => {
     try {
       const order = await Order.findAll({
