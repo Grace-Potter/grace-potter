@@ -3,7 +3,22 @@
 const {green, red} = require('chalk')
 const loremIpsum = require('lorem-ipsum').loremIpsum
 const db = require('../server/db')
-const {User, Product, Order} = require('../server/db/models')
+const {User, Product, Order, Category} = require('../server/db/models')
+
+let categories = [
+  {
+    category: 'Vase'
+  },
+  {
+    category: 'Mug'
+  },
+  {
+    category: 'Bowl'
+  },
+  {
+    category: 'Other'
+  }
+]
 
 let products = [
   {
@@ -11,7 +26,8 @@ let products = [
     price: 5500,
     quantity: 5,
     description: 'A wheel thrown and hand painted mug by Marian Bull',
-    imageUrl: '/images/MeOk.jpg'
+    imageUrl: '/images/MeOk.jpg',
+    categoryId: 2
   },
   {
     name: 'MB x HB Phone Box II',
@@ -19,63 +35,72 @@ let products = [
     quantity: 1,
     description:
       'Sleeping place or coffin or resting place for your phone. Hand made by Marian Bull and painted by Halith Bates',
-    imageUrl: '/images/phone-box.jpg'
+    imageUrl: '/images/phone-box.jpg',
+    categoryId: 4
   },
   {
     name: 'Kohiki Mug',
     price: 5500,
     quantity: 5,
     description: 'Kohiki (white slip) mug by Akira Satake',
-    imageUrl: '/images/kohiki-mug.jpg'
+    imageUrl: '/images/kohiki-mug.jpg',
+    categoryId: 2
   },
   {
     name: 'Kohiki Vase',
     price: 48500,
     quantity: 3,
     description: 'Kohiki (white slip) vase/sculpture by Akira Satake',
-    imageUrl: '/images/kohiki-vase.jpg'
+    imageUrl: '/images/kohiki-vase.jpg',
+    categoryId: 1
   },
   {
     name: 'Large Moon Jar',
     price: 20447,
     quantity: 1,
     description: 'Moon jar by Steve Booton',
-    imageUrl: '/images/SB-moon-jar.jpg'
+    imageUrl: '/images/SB-moon-jar.jpg',
+    categoryId: 4
   },
   {
     name: 'Yunomi Tea Bowl',
     price: 6816,
     quantity: 8,
     description: 'Yunomi by Steve Booton',
-    imageUrl: '/images/SB-yunomi.jpg'
+    imageUrl: '/images/SB-yunomi.jpg',
+    categoryId: 3
   },
   {
     name: 'Dot Mug',
     price: 4500,
     quantity: 15,
     description: 'Stoneware textured mug. Hand built by Katie Burk',
-    imageUrl: '/images/KFB_dotmug_collection.png'
+    imageUrl: '/images/KFB_dotmug_collection.png',
+    categoryId: 2
   },
   {
     name: 'Large Vase',
     price: 16000,
     quantity: 3,
     description: 'Hand built by Katie Burk',
-    imageUrl: '/images/KFB_vase_3.png'
+    imageUrl: '/images/KFB_vase_3.png',
+    categoryId: 1
   },
   {
     name: 'Vase',
     price: 40000,
     quantity: 1,
     description: 'Stoneware vase by Nadeige Choplet',
-    imageUrl: '/images/choplet-vase.png'
+    imageUrl: '/images/choplet-vase.png',
+    categoryId: 1
   },
   {
     name: 'Spoon Holder',
     price: 7200,
     quantity: 7,
     description: 'Spoon holder by Nicole Sarby',
-    imageUrl: '/images/spoon-holder.jpeg'
+    imageUrl: '/images/spoon-holder.jpeg',
+    categoryId: 4
   }
 ]
 
@@ -84,6 +109,13 @@ const users = []
 async function seed() {
   await db.sync({force: true})
   console.log('db synced!')
+
+  for (let i = 0; i < categories.length; i++) {
+    const instance = await Category.create(categories[i])
+    categories[i] = instance
+  }
+
+  console.log(`seeded ${categories.length} categories`)
 
   for (let i = 0; i < 6; i++) {
     const user = await User.create({

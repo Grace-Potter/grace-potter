@@ -1,11 +1,11 @@
 const router = require('express').Router()
-const {Product} = require('../db/models')
+const {Product, Category} = require('../db/models')
 const _ = require('lodash')
 const {cyan} = require('chalk')
 const {handle404, checkAdmin} = require('../../util/server')
 module.exports = router
 
-//JA: Currently retrieves all items even if the item is out of stock. Will have to decide if this is expected.""
+// retrieve all items
 router.get('/', async (req, res, next) => {
   try {
     const products = await Product.findAll({})
@@ -19,7 +19,14 @@ router.get('/', async (req, res, next) => {
 router.post('/', checkAdmin, async (req, res, next) => {
   try {
     // ensure that nothing sinister is being injected into db
-    const props = ['name', 'description', 'price', 'quantity', 'imageUrl']
+    const props = [
+      'name',
+      'description',
+      'price',
+      'quantity',
+      'imageUrl',
+      'category'
+    ]
     const obj = req.body
     const product = await Product.create(_.pick(obj, props))
     res.status(200).json(product)
@@ -41,7 +48,14 @@ router.get('/:productId', async (req, res, next) => {
 // update a product
 router.put('/:productId', checkAdmin, async (req, res, next) => {
   try {
-    const props = ['name', 'description', 'price', 'quantity', 'imageUrl']
+    const props = [
+      'name',
+      'description',
+      'price',
+      'quantity',
+      'imageUrl',
+      'categoryId'
+    ]
     const [nRows, [product]] = await Product.update(_.pick(req.body, props), {
       where: {
         id: req.params.productId
