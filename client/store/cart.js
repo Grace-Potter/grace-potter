@@ -65,6 +65,20 @@ export const thunkUpdateCartItem = (
   }
 }
 
+export const thunkCheckoutCart = userId => async dispatch => {
+  try {
+    let {data} = await axios.get(`/api/carts/${userId}/currentCart/checkout`)
+    if (!data[0]) {
+      await axios.put(`/api/carts/${userId}/currentCart/checkout`)
+    } else {
+      console.log('list of out of stock items', data[0])
+    }
+    dispatch(fetchCart(userId))
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 /**
  * REDUCER
  */

@@ -76,6 +76,7 @@ router.get(
   }
 )
 
+// complete checkout
 router.put(
   '/:userId/currentCart/checkout',
   userOrAdmin,

@@ -4,7 +4,8 @@ import CartList from './CartList'
 import {
   fetchCart,
   thunkDeleteCartItem,
-  thunkUpdateCartItem
+  thunkUpdateCartItem,
+  thunkCheckoutCart
 } from '../store/cart'
 
 class checkoutPage extends React.Component {
@@ -21,6 +22,7 @@ class checkoutPage extends React.Component {
   handleCheckout() {
     // console.log('checkout handler works')
     // console.log('user id:', this.props.user.id)
+    this.props.thunkCheckoutCart(this.props.user.id)
   }
 
   handleDelete(productId) {
@@ -70,7 +72,8 @@ const mapDispatch = dispatch => ({
   thunkDeleteCartItem: (userId, productId) =>
     dispatch(thunkDeleteCartItem(userId, productId)),
   thunkUpdateCartItem: (userId, productId, quantity) =>
-    dispatch(thunkUpdateCartItem(userId, productId, quantity))
+    dispatch(thunkUpdateCartItem(userId, productId, quantity)),
+  thunkCheckoutCart: userId => dispatch(thunkCheckoutCart(userId))
 })
 
 export default connect(mapState, mapDispatch)(checkoutPage)
