@@ -27,18 +27,22 @@ form div {
 
 ul {
   list-style-type: none;
-  padding: 0;
+  padding: 20px;
 }
 
-li img {
-  width: 150px;
+/* li img {
+  width: 15px;
   height: auto;
-}
+} */
 
-.card {
+.cardContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
+  /* width: 10%; */
+  /* height: 1000px; */
+  align-items: center;
+  align-content: center;
 }
 
 .row-wrap {

@@ -12,7 +12,7 @@ class UpdateProduct extends React.Component {
       price: 0,
       quantity: 0,
       imageUrl: '',
-      initialized: false
+      initialized: false,
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -34,7 +34,7 @@ class UpdateProduct extends React.Component {
         price: price,
         quantity: quantity,
         imageUrl: imageUrl,
-        initialized: true
+        initialized: true,
       })
 
       console.log('updated')
@@ -43,7 +43,7 @@ class UpdateProduct extends React.Component {
 
   handleChange(event) {
     this.setState({
-      [event.target.name]: event.target.value
+      [event.target.name]: event.target.value,
     })
   }
 
@@ -52,7 +52,7 @@ class UpdateProduct extends React.Component {
 
     // don't include optional fields that have been left blank
     const product = Object.keys(this.state)
-      .filter(key => !!key)
+      .filter((key) => !!this.state[key])
       .reduce((obj, key) => {
         obj[key] = this.state[key]
         return obj
@@ -81,13 +81,13 @@ class UpdateProduct extends React.Component {
   }
 }
 
-const mapState = state => ({
-  product: state.singleProduct.testState
+const mapState = (state) => ({
+  product: state.singleProduct.testState,
 })
 
-const mapDispatch = dispatch => ({
-  getProduct: productId => dispatch(fetchProduct(productId)),
-  updateProduct: (product, id) => dispatch(putProduct(product, id))
+const mapDispatch = (dispatch) => ({
+  getProduct: (productId) => dispatch(fetchProduct(productId)),
+  updateProduct: (product, id) => dispatch(putProduct(product, id)),
 })
 
 export default connect(mapState, mapDispatch)(UpdateProduct)
