@@ -15,36 +15,18 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-// retrieve all categories
-router.get('/category', async (req, res, next) => {
-  try {
-    const categories = await Category.findAll({})
-    res.json(categories)
-  } catch (err) {
-    next(err)
-  }
-})
-
-//retrieve one category
-router.get('/category/:categoryId', async (req, res, next) => {
-  try {
-    const category = await Category.findAll({
-      include: {all: true},
-      where: {
-        id: req.params.categoryId
-      }
-    })
-    res.json(category)
-  } catch (err) {
-    next(err)
-  }
-})
-
 // add a new product to the database
 router.post('/', checkAdmin, async (req, res, next) => {
   try {
     // ensure that nothing sinister is being injected into db
-    const props = ['name', 'description', 'price', 'quantity', 'imageUrl']
+    const props = [
+      'name',
+      'description',
+      'price',
+      'quantity',
+      'imageUrl',
+      'category'
+    ]
     const obj = req.body
     const product = await Product.create(_.pick(obj, props))
     res.status(200).json(product)
@@ -66,7 +48,14 @@ router.get('/:productId', async (req, res, next) => {
 // update a product
 router.put('/:productId', checkAdmin, async (req, res, next) => {
   try {
-    const props = ['name', 'description', 'price', 'quantity', 'imageUrl']
+    const props = [
+      'name',
+      'description',
+      'price',
+      'quantity',
+      'imageUrl',
+      'categoryId'
+    ]
     const [nRows, [product]] = await Product.update(_.pick(req.body, props), {
       where: {
         id: req.params.productId
