@@ -34,9 +34,9 @@ const updateCartItem = updatedCart => ({
 /**
  * THUNK CREATORS
  */
-export const fetchCart = () => async dispatch => {
+export const fetchCart = userId => async dispatch => {
   try {
-    let {data} = await axios.get(`/api/products`) // This route is a placeholder until the cart routes become available
+    let {data} = await axios.get(`/api/carts/${userId}/currentCart/`) // This route is a placeholder until the cart routes become available
     dispatch(getCart(data))
   } catch (error) {
     console.log(error)

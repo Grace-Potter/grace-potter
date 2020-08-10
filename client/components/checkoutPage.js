@@ -11,7 +11,7 @@ class checkoutPage extends React.Component {
     this.handleChange = this.handleChange.bind(this)
   }
   componentDidMount() {
-    this.props.fetchCart()
+    this.props.fetchCart(this.props.user.id)
   }
 
   handleCheckout() {
@@ -52,7 +52,7 @@ const mapState = state => ({
 })
 
 const mapDispatch = dispatch => ({
-  fetchCart: () => dispatch(fetchCart())
+  fetchCart: userId => dispatch(fetchCart(userId))
   // thunkDeleteCartItem: () => dispatch(thunkDeleteCartItem())
 })
 
