@@ -4,7 +4,6 @@ import axios from 'axios'
  * ACTION TYPES
  */
 const GET_CART = 'GET_CART'
-const UPDATE_CART_ITEM = 'UPDATE_CART_ITEM'
 
 /**
  * ACTION CREATORS
@@ -12,11 +11,6 @@ const UPDATE_CART_ITEM = 'UPDATE_CART_ITEM'
 const getCart = cart => ({
   type: GET_CART,
   cart
-})
-
-const updateCartItem = updatedCart => ({
-  type: UPDATE_CART_ITEM,
-  updatedCart
 })
 
 /**
@@ -41,9 +35,7 @@ export const thunkAddCartItem = (userId, productId) => async dispatch => {
 
 export const thunkDeleteCartItem = (userId, productId) => async dispatch => {
   try {
-    let {data: deletedItem} = await axios.delete(
-      `/api/carts/${userId}/currentCart/product/${productId}`
-    )
+    await axios.delete(`/api/carts/${userId}/currentCart/product/${productId}`)
     dispatch(fetchCart(userId))
   } catch (error) {
     console.log(error)
@@ -56,7 +48,7 @@ export const thunkUpdateCartItem = (
   quantity
 ) => async dispatch => {
   try {
-    let {data: updatedItem} = await axios.put(
+    await axios.put(
       `/api/carts/${userId}/currentCart/product/${productId}/quantity/${quantity}`
     )
     dispatch(fetchCart(userId))
