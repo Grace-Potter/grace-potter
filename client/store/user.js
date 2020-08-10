@@ -35,6 +35,9 @@ export const auth = (email, password, method) => async dispatch => {
   let res
   try {
     res = await axios.post(`/auth/${method}`, {email, password})
+    if (method === 'signup') {
+      await axios.post(`/api/carts/${res.data.id}/newCart/`)
+    }
   } catch (authError) {
     return dispatch(getUser({error: authError}))
   }

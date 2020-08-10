@@ -46,8 +46,9 @@ export const fetchCart = userId => async dispatch => {
 export const thunkAddCartItem = (userId, productId) => async dispatch => {
   try {
     let {data: newItem} = await axios.post(
-      `/${userId}/currentCart/${productId}`
+      `/api/carts/${userId}/currentCart/product/${productId}`
     )
+    console.log('newItem', newItem)
     dispatch(addCartItem(newItem))
   } catch (error) {
     console.log(error)
@@ -90,7 +91,7 @@ export const thunkDeleteCartItem = userId => async dispatch => {
 const initialState = {
   cart: []
 }
-
+// cart: {cart: [cartitem]}
 export default function(state = initialState, action) {
   switch (action.type) {
     case GET_CART:

@@ -32,17 +32,21 @@ class checkoutPage extends React.Component {
   }
 
   render() {
-    return (
-      <div>
-        <h1>Shopping Cart</h1>
-        <CartList
-          cart={this.props.cart}
-          handleCheckout={this.handleCheckout}
-          handleDelete={this.handleDelete}
-          handleChange={this.handleChange}
-        />
-      </div>
-    )
+    if (!this.props.cart[0]) {
+      return <h1>Loading</h1>
+    } else {
+      return (
+        <div>
+          <h1>Shopping Cart</h1>
+          <CartList
+            cart={this.props.cart[0].products}
+            handleCheckout={this.handleCheckout}
+            handleDelete={this.handleDelete}
+            handleChange={this.handleChange}
+          />
+        </div>
+      )
+    }
   }
 }
 
