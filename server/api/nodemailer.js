@@ -5,8 +5,14 @@ module.exports = router
 
 router.post('/', async (req, res, next) => {
   try {
-    let transporter = nodemailer.createTransport({
-      //
+    const transporter = nodemailer.createTransport({
+      //host: "smtp.example.com",
+      port: 587,
+      secure: false, // upgrade later with STARTTLS
+      auth: {
+        user: 'username',
+        pass: 'password'
+      }
     })
 
     const {email} = req.body

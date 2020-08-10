@@ -7,7 +7,8 @@ const CartList = props => {
     <ul>
       {cart.length ? (
         <li>
-          <button onClick={() => props.handleCheckout()}>Checkout</button>
+          {/* AM: I'm passing event into the OnClick*/}
+          <button onClick={event => props.handleCheckout()}>Checkout</button>
           {cart.map(product => (
             <li key={product.id}>
               <CartItemCard
