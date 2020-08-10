@@ -50,16 +50,20 @@ export const thunkDeleteCartItem = (userId, productId) => async dispatch => {
   }
 }
 
-// export const thunkUpdateCartItem = (userId, productId) => async (dispatch) => {
-//   try {
-//     let {data: updatedItem} = await axios.post(
-//       `/${userId}/currentCart/${productId}`
-//     )
-//     dispatch(updateCartItem(updatedItem))
-//   } catch (error) {
-//     console.log(error)
-//   }
-// }
+export const thunkUpdateCartItem = (
+  userId,
+  productId,
+  quantity
+) => async dispatch => {
+  try {
+    let {data: updatedItem} = await axios.put(
+      `/api/carts/${userId}/currentCart/product/${productId}/quantity/${quantity}`
+    )
+    dispatch(fetchCart(userId))
+  } catch (error) {
+    console.log(error)
+  }
+}
 
 /**
  * REDUCER

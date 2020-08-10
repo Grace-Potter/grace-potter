@@ -1,7 +1,11 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import CartList from './CartList'
-import {fetchCart, thunkDeleteCartItem} from '../store/cart'
+import {
+  fetchCart,
+  thunkDeleteCartItem,
+  thunkUpdateCartItem
+} from '../store/cart'
 
 class checkoutPage extends React.Component {
   constructor() {
@@ -26,10 +30,15 @@ class checkoutPage extends React.Component {
     this.props.thunkDeleteCartItem(this.props.user.id, productId)
   }
 
-  handleChange(event) {
+  handleChange() {
     // console.log('qty: ', event.target.value)
     // console.log('product id: ', event.target.id)
     // console.log('user id:', this.props.user.id)
+    this.props.thunkUpdateCartItem(
+      this.props.user.id,
+      event.target.id,
+      event.target.value
+    )
   }
 
   render() {
@@ -59,7 +68,9 @@ const mapState = state => ({
 const mapDispatch = dispatch => ({
   fetchCart: userId => dispatch(fetchCart(userId)),
   thunkDeleteCartItem: (userId, productId) =>
-    dispatch(thunkDeleteCartItem(userId, productId))
+    dispatch(thunkDeleteCartItem(userId, productId)),
+  thunkUpdateCartItem: (userId, productId, quantity) =>
+    dispatch(thunkUpdateCartItem(userId, productId, quantity))
 })
 
 export default connect(mapState, mapDispatch)(checkoutPage)
