@@ -13,7 +13,7 @@ export class AllProducts extends React.Component {
     return (
       <div>
         <header>
-          <h1>All Products</h1>
+          <h3>All Products</h3>
           {this.props.fromPortal && (
             <Link to="/admin-portal/manageproducts/addproduct">
               <button type="button">Add Product</button>
@@ -29,12 +29,12 @@ export class AllProducts extends React.Component {
   }
 }
 
-const mapState = state => ({
-  products: state.allProducts
+const mapState = (state) => ({
+  products: state.allProducts,
 })
 
-const mapDispatch = dispatch => ({
-  getProducts: () => dispatch(fetchProducts())
+const mapDispatch = (dispatch) => ({
+  getProducts: () => dispatch(fetchProducts()),
 })
 
 export default connect(mapState, mapDispatch)(AllProducts)
