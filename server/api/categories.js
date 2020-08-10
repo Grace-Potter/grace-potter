@@ -41,13 +41,13 @@ router.post('/', checkAdmin, async (req, res, next) => {
 // update a category
 router.put('/:categoryId', checkAdmin, async (req, res, next) => {
   try {
-    const category = await Category.update(req.body, {
+    const [numRowsUpdated, [category]] = await Category.update(req.body, {
       where: {
         id: req.params.categoryId
       },
       returning: true
     })
-    handle404(category)
+    handle404(numRowsUpdated)
     res.status(200).json(category)
   } catch (err) {
     next(err)
