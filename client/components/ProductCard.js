@@ -38,7 +38,8 @@ const ProductCard = (props) => {
   const {name, imageUrl, price, id, fromPortal, removeProduct} = props
   return (
     // <div className="card">
-    <div>
+    <Link to={`/products/${id}`}>
+      {/* <div> */}
       <Card className="text-center">
         <CardImg top src={imageUrl} alt="Card image cap" />
         <CardBody>
@@ -56,7 +57,8 @@ const ProductCard = (props) => {
           )}
         </CardBody>
       </Card>
-    </div>
+      {/* </div> */}
+    </Link>
   )
 }
 
