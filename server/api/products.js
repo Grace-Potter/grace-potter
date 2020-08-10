@@ -1,14 +1,39 @@
 const router = require('express').Router()
-const {Product} = require('../db/models')
+const {Product, Category} = require('../db/models')
 const _ = require('lodash')
 const {cyan} = require('chalk')
 module.exports = router
 
-//JA: Currently retrieves all items even if the item is out of stock. Will have to decide if this is expected.""
+// retrieve all items
 router.get('/', async (req, res, next) => {
   try {
     const products = await Product.findAll({})
     res.json(products)
+  } catch (err) {
+    next(err)
+  }
+})
+
+// retrieve all categories
+router.get('/category', async (req, res, next) => {
+  try {
+    const categories = await Category.findAll({})
+    res.json(categories)
+  } catch (err) {
+    next(err)
+  }
+})
+
+//retrieve one category
+router.get('/category/:categoryId', async (req, res, next) => {
+  try {
+    const category = await Category.findAll({
+      include: {all: true},
+      where: {
+        id: req.params.categoryId
+      }
+    })
+    res.json(category)
   } catch (err) {
     next(err)
   }
