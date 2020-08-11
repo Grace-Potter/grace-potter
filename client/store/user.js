@@ -83,6 +83,7 @@ export default function(state = defaultUser, action) {
           window.localStorage.setItem('user', JSON.stringify({id: salt}))
           window.localStorage.setItem('cart', JSON.stringify({cart: []}))
         }
+        action.user = JSON.parse(window.localStorage.user)
       }
       return action.user
     case REMOVE_USER:
