@@ -63,7 +63,7 @@ export const thunkCheckoutCart = userId => async dispatch => {
     if (!data[0]) {
       await axios.all([
         //axios.put(`/api/carts/${userId}/currentCart/checkout`)
-        axios.post(`/api/nodemailer/${'gugkvdodvfefzfstas@awdrt.net'}`)
+        axios.post(`/api/nodemailer/${'mitrovic.aleksandar@outlook.com'}`)
       ])
     } else {
       console.log('list of out of stock items', data[0])
