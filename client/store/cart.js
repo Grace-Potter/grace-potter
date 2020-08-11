@@ -18,16 +18,16 @@ const getCart = cart => ({
  */
 export const fetchCart = userId => async dispatch => {
   try {
-    /*
     if (Number.isInteger(userId)) {
-      let {data} = await axios.get(`/api/carts/guestCart/${userId}/currentCart`)
-    } else {
       let {data} = await axios.get(`/api/carts/${userId}/currentCart/`)
+      dispatch(getCart(data))
+    } else {
+      let {data} = await axios.get(`/api/carts/guestCart/${userId}/currentCart`)
+      dispatch(getCart(data))
     }
-    dispatch(getCart(data))
-    */
-    let {data} = await axios.get(`/api/carts/${userId}/currentCart/`)
-    dispatch(getCart(data))
+
+    // let {data} = await axios.get(`/api/carts/${userId}/currentCart/`)
+    // dispatch(getCart(data))
   } catch (error) {
     console.log(error)
   }

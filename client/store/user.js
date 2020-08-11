@@ -35,6 +35,7 @@ export const auth = (email, password, method) => async dispatch => {
   let res
   try {
     res = await axios.post(`/auth/${method}`, {email, password})
+    console.log('---- RES.DATA ----', res.data)
   } catch (authError) {
     return dispatch(getUser({error: authError}))
   }
@@ -77,15 +78,19 @@ const generateSalt = () => {
 export default function(state = defaultUser, action) {
   switch (action.type) {
     case GET_USER:
-      if (!action.user.keys) {
+      console.log('--- THIS SHOULD BE CODY ---', action.user)
+      // if empty
+      if (!action.user.email) {
         if (!window.localStorage.user) {
           const salt = generateSalt()
           window.localStorage.setItem('user', JSON.stringify({id: salt}))
           window.localStorage.setItem('cart', JSON.stringify({cart: []}))
         }
-        action.user = JSON.parse(window.localStorage.user)
+        const user = JSON.parse(window.localStorage.user)
+        return user
+      } else {
+        return action.user
       }
-      return action.user
     case REMOVE_USER:
       return defaultUser
     default:
