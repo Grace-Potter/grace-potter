@@ -4,42 +4,40 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout} from '../store'
 
-// const Navbar = ({handleClick, isLoggedIn, isAdmin}) => (
-class Navbar extends React.Component {
-  render() {
-    const {handleClick, isLoggedIn, isAdmin} = this.props
-    return (
-      <div>
-        <h1>Grace Potter</h1>
-        <nav>
-          {isLoggedIn ? (
-            <div>
-              {/* The navbar will show these links after you log in */}
-              <Link to="/home">Home</Link>
-              <a href="#" onClick={handleClick}>
-                Logout
-              </a>
-              {isAdmin && <Link to="/admin-portal">Admin Portal</Link>}
-            </div>
-          ) : (
-            <div>
-              {/* The navbar will show these links before you log in */}
-              <Link to="/login">Login</Link>
-              <Link to="/signup">Sign Up</Link>
-            </div>
-          )}
+const Navbar = ({handleClick, isLoggedIn, isAdmin, cart}) => {
+  console.log('CART', cart)
+
+  return (
+    <div>
+      <h1>Grace Potter</h1>
+      <nav>
+        {isLoggedIn ? (
           <div>
-            <Link to="/products">All Products</Link>
-            <Link to="/cart">
-              <span>Cart</span>
-              <span>3</span>
-            </Link>
+            {/* The navbar will show these links after you log in */}
+            <Link to="/home">Home</Link>
+            <a href="#" onClick={handleClick}>
+              Logout
+            </a>
+            {isAdmin && <Link to="/admin-portal">Admin Portal</Link>}
           </div>
-        </nav>
-        {/* <hr /> */}
-      </div>
-    )
-  }
+        ) : (
+          <div>
+            {/* The navbar will show these links before you log in */}
+            <Link to="/login">Login</Link>
+            <Link to="/signup">Sign Up</Link>
+          </div>
+        )}
+        <div>
+          <Link to="/products">All Products</Link>
+          <Link to="/cart">
+            <span>Cart</span>
+            <span className="badge">{cart.length}</span>
+          </Link>
+        </div>
+      </nav>
+      {/* <hr /> */}
+    </div>
+  )
 }
 
 /**
@@ -48,7 +46,8 @@ class Navbar extends React.Component {
 const mapState = state => {
   return {
     isLoggedIn: !!state.user.id,
-    isAdmin: !!state.user.isAdmin
+    isAdmin: !!state.user.isAdmin,
+    cart: state.cart.cart
   }
 }
 
