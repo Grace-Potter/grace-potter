@@ -4,7 +4,7 @@ const nodemailer = require('nodemailer')
 
 module.exports = router
 
-router.post('/:email', async (req, res, next) => {
+router.post('/:email/:orderId', async (req, res, next) => {
   try {
     const transporter = nodemailer.createTransport({
       host: 'smtp-mail.outlook.com',
@@ -23,8 +23,14 @@ router.post('/:email', async (req, res, next) => {
       from: '"Grace Potter" <gracepotter2020@outlook.com>',
       to: req.params.email,
       subject: 'Your Order Has Been Received!',
-      text: 'Howdy!',
-      html: '<p>Howdy!</p>'
+      text: `Howdy!
+      We have received your order, and all your items are on their way.
+      For reference, here is your Order ID: ${req.params.orderId}.`,
+      html: `
+      <p>Howdy!</p>
+      <p>We have received your order, and all your items are on their way.</p>
+      <p>For reference, here is your Order ID: ${req.params.orderId}.</p>
+      `
     }
 
     transporter.sendMail(msg, (error, info) => {
