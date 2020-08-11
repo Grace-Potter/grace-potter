@@ -1,3 +1,12 @@
+h1 {
+  margin-left: 0.5em;
+  padding-top: 0.5em;
+}
+
+h3 {
+  margin-left: 1em;
+}
+
 body {
   font-family: sans-serif;
 }
@@ -12,7 +21,8 @@ label {
 
 nav * {
   display: inline-block;
-  margin: 1em;
+  margin-left: 1em;
+  margin-bottom: 0.3em;
 }
 
 header * {
@@ -27,21 +37,50 @@ form div {
 
 ul {
   list-style-type: none;
-  padding: 0;
+  padding: 20px;
 }
 
-li img {
-  width: 150px;
-  height: auto;
-}
-
-.card {
+.cardContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
+  align-content: center;
+  margin-bottom: 20px;
 }
 
 .row-wrap {
   display: flex;
   flex-flow: row wrap;
+}
+
+.singleProduct {
+  margin-left: 10em;
+  margin-right: 10em;
+  margin-top: 2em;
+}
+
+.auth {
+  margin-left: 25em;
+  margin-right: 25em;
+  margin-top: 2em;
+}
+
+.checkoutProduct {
+  margin-left: 10em;
+  margin-right: 10em;
+  margin-bottom: 1em;
+  width: 50em;
+}
+
+.bold {
+  text-emphasis: bold;
+}
+
+.background {
+  background-color: #e7cfbc;
+  padding-top: 1em;
+}
+
+.full {
+  width: 100%;
 }

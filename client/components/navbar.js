@@ -6,7 +6,7 @@ import {logout} from '../store'
 
 const Navbar = ({handleClick, isLoggedIn, isAdmin}) => (
   <div>
-    <h1>BOILERMAKER</h1>
+    <h1>Grace Potter</h1>
     <nav>
       {isLoggedIn ? (
         <div>
@@ -29,7 +29,7 @@ const Navbar = ({handleClick, isLoggedIn, isAdmin}) => (
         <Link to="/cart">Cart</Link>
       </div>
     </nav>
-    <hr />
+    {/* <hr /> */}
   </div>
 )
 

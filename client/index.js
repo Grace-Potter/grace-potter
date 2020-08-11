@@ -9,6 +9,10 @@ import App from './app'
 // establishes socket connection
 import './socket'
 
+// import css
+// import 'style.css'
+import 'bootstrap/dist/css/bootstrap.css'
+
 ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>

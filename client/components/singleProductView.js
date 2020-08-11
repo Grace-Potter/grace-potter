@@ -2,14 +2,17 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {fetchProduct} from '../store/singleProduct'
 import {thunkAddCartItem} from '../store/cart'
+import {
+  CardImg,
+  CardTitle,
+  Card,
+  CardBody,
+  CardText,
+  Button,
+  Col,
+  Row
+} from 'reactstrap'
 
-/* 
-    name: 'ME OK Mug',
-    price: 55.0,
-    quantity: 5,
-    description: 'A wheel thrown and hand painted mug by Marian Bull',
-    imageUrl: 'images/MeOk.jpg'
-*/
 class singleProductView extends Component {
   constructor() {
     super()
@@ -27,17 +30,46 @@ class singleProductView extends Component {
   }
   render() {
     const product = this.props.state
+    // return (
+    //   <div>
+    //     <img src={product.imageUrl} />
+    //     <h2>{product.name}</h2>
+    //     <div>Description: {product.description}</div>
+    //     <div>Price: {`$${product.price}`}</div>
+    //     <div>Qty: {product.quantity}</div>
+    //     <button
+    //       type="button"
+    //       onClick={() => this.handleAddToCart(product.id)}
+    //     >
+    //       Add to cart
+    //     </button>
+    //   </div>
+    // )
+
     return (
-      <div>
-        <img src={product.imageUrl} />
-        <h2>{product.name}</h2>
-        <div>Description: {product.description}</div>
-        <div>Price: {`$${product.price}`}</div>
-        <div>Qty: {product.quantity}</div>
-        <button onClick={() => this.handleAddToCart(product.id)}>
-          Add to cart
-        </button>
-      </div>
+      <Card className="text-center singleProduct shadow p-3 mb-5 bg-white rounded">
+        <Row>
+          <Col className="col-6">
+            <CardImg top src={product.imageUrl} alt="Card image cap" />
+          </Col>
+          <Col>
+            <CardBody>
+              <CardTitle>
+                <h2>{product.name}</h2>
+              </CardTitle>
+              <CardText>{`${product.description}`}</CardText>
+              <CardText>{`$${product.price / 100}`}</CardText>
+
+              <Button
+                color="primary"
+                onClick={() => this.handleAddToCart(product.id)}
+              >
+                Add to cart
+              </Button>
+            </CardBody>
+          </Col>
+        </Row>
+      </Card>
     )
   }
 }

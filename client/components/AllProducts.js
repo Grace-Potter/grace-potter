@@ -11,9 +11,9 @@ export class AllProducts extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="background">
         <header>
-          <h1>All Products</h1>
+          <h3>All Products</h3>
           {this.props.fromPortal && (
             <Link to="/admin-portal/manageproducts/addproduct">
               <button type="button">Add Product</button>
