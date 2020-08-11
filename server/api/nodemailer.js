@@ -3,22 +3,21 @@ const nodemailer = require('nodemailer')
 
 module.exports = router
 
-router.post('/', async (req, res, next) => {
+router.post('/:email', async (req, res, next) => {
   try {
     const transporter = nodemailer.createTransport({
-      //host: "smtp.example.com",
+      host: 'smtp.ethereal.email',
       port: 587,
-      secure: false, // upgrade later with STARTTLS
       auth: {
-        user: 'username',
-        pass: 'password'
+        user: 'janet40@ethereal.email',
+        pass: 'Hu3mUWAAwaxeSY2jbH'
       }
     })
 
-    const {email} = req.body
+    console.log(typeof req.body)
     const msg = {
       from: 'Grace Potter',
-      to: `${email}`,
+      to: req.params.email,
       subject: 'Your Order Has Been Received!',
       text: 'Howdy!',
       html: '<p>Howdy!</p>'
