@@ -35,7 +35,6 @@ export const auth = (email, password, method) => async dispatch => {
   let res
   try {
     res = await axios.post(`/auth/${method}`, {email, password})
-    console.log('---- RES.DATA ----', res.data)
   } catch (authError) {
     return dispatch(getUser({error: authError}))
   }
@@ -66,7 +65,7 @@ export const logout = () => async dispatch => {
   }
 }
 
-//generate UserId
+//generate guestUserId
 const generateSalt = () => {
   const userId = crypto.randomBytes(16).toString('base64')
   return userId
@@ -78,13 +77,10 @@ const generateSalt = () => {
 export default function(state = defaultUser, action) {
   switch (action.type) {
     case GET_USER:
-      console.log('--- THIS SHOULD BE CODY ---', action.user)
-      // if empty
       if (!action.user.email) {
         if (!window.localStorage.user) {
           const salt = generateSalt()
           window.localStorage.setItem('user', JSON.stringify({id: salt}))
-          window.localStorage.setItem('cart', JSON.stringify({cart: []}))
         }
         const user = JSON.parse(window.localStorage.user)
         return user
@@ -92,7 +88,7 @@ export default function(state = defaultUser, action) {
         return action.user
       }
     case REMOVE_USER:
-      return defaultUser
+      return JSON.parse(window.localStorage.user)
     default:
       return state
   }
