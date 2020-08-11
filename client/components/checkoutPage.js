@@ -43,7 +43,7 @@ class checkoutPage extends React.Component {
     // using `error.message`.
 
     ******************************/
-    this.props.thunkCheckoutCart(this.props.user.id)
+    this.props.thunkCheckoutCart(this.props.user.id, this.props.user.email)
   }
 
   handleDelete(productId) {
@@ -88,7 +88,8 @@ const mapDispatch = dispatch => ({
     dispatch(thunkDeleteCartItem(userId, productId)),
   thunkUpdateCartItem: (userId, productId, quantity) =>
     dispatch(thunkUpdateCartItem(userId, productId, quantity)),
-  thunkCheckoutCart: userId => dispatch(thunkCheckoutCart(userId))
+  thunkCheckoutCart: (userId, userEmail) =>
+    dispatch(thunkCheckoutCart(userId, userEmail))
 })
 
 export default connect(mapState, mapDispatch)(checkoutPage)

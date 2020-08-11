@@ -57,12 +57,12 @@ export const thunkUpdateCartItem = (
   }
 }
 
-export const thunkCheckoutCart = userId => async dispatch => {
+export const thunkCheckoutCart = (userId, userEmail) => async dispatch => {
   try {
     let {data} = await axios.get(`/api/carts/${userId}/currentCart/checkout`)
     if (!data[0]) {
       await Promise.all([
-        axios.post(`/api/nodemailer/${'mitrovic.aleksandar@outlook.com'}`),
+        axios.post(`/api/nodemailer/${userEmail}`),
         axios.put(`/api/carts/${userId}/currentCart/checkout`)
       ])
     } else {

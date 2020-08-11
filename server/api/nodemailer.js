@@ -19,7 +19,6 @@ router.post('/:email', async (req, res, next) => {
       }
     })
 
-    console.log(typeof req.body)
     const msg = {
       from: '"Grace Potter" <gracepotter2020@outlook.com>',
       to: req.params.email,
