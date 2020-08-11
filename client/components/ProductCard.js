@@ -26,17 +26,17 @@ import {Card, CardImg, CardText, CardBody, CardTitle, Button} from 'reactstrap'
 //   )
 // }
 
-const ProductCard = (props) => {
+const ProductCard = props => {
   const {name, imageUrl, price, id, fromPortal, removeProduct} = props
   return (
     // <div className="card">
     <Link to={`/products/${id}`}>
       {/* <div> */}
-      <Card className="text-center">
+      <Card className="text-center shadow p-3 mb-5 bg-white rounded">
         <CardImg top src={imageUrl} alt="Card image cap" />
         <CardBody>
-          <CardTitle>{name}</CardTitle>
-          <CardText>{`$${price / 100}`}</CardText>
+          <CardTitle className="bold">{name}</CardTitle>
+          <CardText className="bold">{`$${price / 100}`}</CardText>
           {fromPortal && (
             <Link to={`/admin-portal/manageproducts/${id}`}>
               <Button color="primary">edit</Button>
@@ -54,8 +54,8 @@ const ProductCard = (props) => {
   )
 }
 
-const mapDispatch = (dispatch) => ({
-  removeProduct: (id) => dispatch(deleteproduct(id)),
+const mapDispatch = dispatch => ({
+  removeProduct: id => dispatch(deleteproduct(id))
 })
 
 export default connect(null, mapDispatch)(ProductCard)

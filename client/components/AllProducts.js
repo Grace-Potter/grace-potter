@@ -11,7 +11,7 @@ export class AllProducts extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="background">
         <header>
           <h3>All Products</h3>
           {this.props.fromPortal && (
@@ -29,12 +29,12 @@ export class AllProducts extends React.Component {
   }
 }
 
-const mapState = (state) => ({
-  products: state.allProducts,
+const mapState = state => ({
+  products: state.allProducts
 })
 
-const mapDispatch = (dispatch) => ({
-  getProducts: () => dispatch(fetchProducts()),
+const mapDispatch = dispatch => ({
+  getProducts: () => dispatch(fetchProducts())
 })
 
 export default connect(mapState, mapDispatch)(AllProducts)

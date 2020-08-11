@@ -7,6 +7,16 @@ import {
   thunkUpdateCartItem,
   thunkCheckoutCart
 } from '../store/cart'
+import {
+  CardImg,
+  CardTitle,
+  Card,
+  CardBody,
+  CardText,
+  Button,
+  Col,
+  Row
+} from 'reactstrap'
 
 class checkoutPage extends React.Component {
   constructor() {
@@ -49,7 +59,7 @@ class checkoutPage extends React.Component {
     } else {
       return (
         <div>
-          <h1>Shopping Cart</h1>
+          <h3>Shopping Cart</h3>
           <CartList
             cart={this.props.cart[0].products}
             handleCheckout={this.handleCheckout}

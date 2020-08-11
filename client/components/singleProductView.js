@@ -2,7 +2,16 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {fetchProduct} from '../store/singleProduct'
 import {thunkAddCartItem} from '../store/cart'
-import {Media, CardImg, CardTitle} from 'reactstrap'
+import {
+  CardImg,
+  CardTitle,
+  Card,
+  CardBody,
+  CardText,
+  Button,
+  Col,
+  Row
+} from 'reactstrap'
 
 class singleProductView extends Component {
   constructor() {
@@ -38,29 +47,42 @@ class singleProductView extends Component {
     // )
 
     return (
-      <div>
-        <Media>
-          <Media left={true}>
-            <CardImg width="30%" src={product.imageUrl} />
-          </Media>
-          <Media body={true}>
-            <CardTitle>{product.name}</CardTitle>
-          </Media>
-        </Media>
-      </div>
+      <Card className="text-center singleProduct shadow p-3 mb-5 bg-white rounded">
+        <Row>
+          <Col className="col-6">
+            <CardImg top src={product.imageUrl} alt="Card image cap" />
+          </Col>
+          <Col>
+            <CardBody>
+              <CardTitle>
+                <h2>{product.name}</h2>
+              </CardTitle>
+              <CardText>{`${product.description}`}</CardText>
+              <CardText>{`$${product.price / 100}`}</CardText>
+
+              <Button
+                color="primary"
+                onClick={() => this.handleAddToCart(product.id)}
+              >
+                Add to cart
+              </Button>
+            </CardBody>
+          </Col>
+        </Row>
+      </Card>
     )
   }
 }
 
-const mapStateToProps = (reducerState) => ({
+const mapStateToProps = reducerState => ({
   state: reducerState.singleProduct.testState,
-  user: reducerState.user,
+  user: reducerState.user
 })
 
-const mapDispatchToProps = (dispatch) => ({
-  fetchProduct: (productId) => dispatch(fetchProduct(productId)),
+const mapDispatchToProps = dispatch => ({
+  fetchProduct: productId => dispatch(fetchProduct(productId)),
   thunkAddCartItem: (userId, productId) =>
-    dispatch(thunkAddCartItem(userId, productId)),
+    dispatch(thunkAddCartItem(userId, productId))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(singleProductView)
