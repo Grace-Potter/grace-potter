@@ -21,7 +21,11 @@ class checkoutPage extends React.Component {
   componentDidMount() {
     this.props.fetchCart(this.props.user.id)
   }
-
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.user !== this.props.user) {
+      this.props.fetchCart(this.props.user.id)
+    }
+  }
   handleCheckout() {
     /*****************************
     ***** STRIPE INTEGRATION *****
@@ -39,22 +43,14 @@ class checkoutPage extends React.Component {
     // using `error.message`.
 
     ******************************/
-    // console.log('checkout handler works')
-    // console.log('user id:', this.props.user.id)
     this.props.thunkCheckoutCart(this.props.user.id)
   }
 
   handleDelete(productId) {
-    // console.log('delete handler works')
-    // console.log('user id:', this.props.user.id)
-    // console.log('product id: ', productId)
     this.props.thunkDeleteCartItem(this.props.user.id, productId)
   }
 
   handleChange() {
-    // console.log('qty: ', event.target.value)
-    // console.log('product id: ', event.target.id)
-    // console.log('user id:', this.props.user.id)
     this.props.thunkUpdateCartItem(
       this.props.user.id,
       event.target.id,
