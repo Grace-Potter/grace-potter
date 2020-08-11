@@ -1,6 +1,5 @@
 import axios from 'axios'
 import history from '../history'
-import {nextTick} from 'process'
 const crypto = require('crypto')
 
 /**
@@ -36,19 +35,23 @@ export const auth = (email, password, method) => async dispatch => {
   let res
   try {
     res = await axios.post(`/auth/${method}`, {email, password})
-    if (method === 'signup') {
-      await axios.post(`/api/carts/${res.data.id}/newCart/`)
-      next()
-    }
   } catch (authError) {
     return dispatch(getUser({error: authError}))
   }
 
   try {
     dispatch(getUser(res.data))
-    history.push('/home')
+    history.push('/products')
   } catch (dispatchOrHistoryErr) {
     console.error(dispatchOrHistoryErr)
+  }
+
+  try {
+    if (method === 'signup') {
+      await axios.post(`/api/carts/${res.data.id}/newCart/`)
+    }
+  } catch (authError) {
+    return dispatch(getUser({error: authError}))
   }
 }
 
@@ -75,9 +78,10 @@ export default function(state = defaultUser, action) {
   switch (action.type) {
     case GET_USER:
       if (!action.user.keys) {
-        if (!window.localStorage.userId) {
+        if (!window.localStorage.user) {
           const salt = generateSalt()
-          window.localStorage.setItem('userId', salt)
+          window.localStorage.setItem('user', JSON.stringify({id: salt}))
+          window.localStorage.setItem('cart', JSON.stringify({cart: []}))
         }
       }
       return action.user
