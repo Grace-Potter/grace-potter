@@ -1,6 +1,5 @@
 import axios from 'axios'
 import history from '../history'
-import {nextTick} from 'process'
 const crypto = require('crypto')
 
 /**
@@ -79,9 +78,10 @@ export default function(state = defaultUser, action) {
   switch (action.type) {
     case GET_USER:
       if (!action.user.keys) {
-        if (!window.localStorage.userId) {
+        if (!window.localStorage.user) {
           const salt = generateSalt()
-          window.localStorage.setItem('userId', salt)
+          window.localStorage.setItem('user', JSON.stringify({id: salt}))
+          window.localStorage.setItem('cart', JSON.stringify({cart: []}))
         }
       }
       return action.user
