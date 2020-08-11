@@ -1,15 +1,37 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import ProductList from './ProductList'
+import {ProductList, Pagination} from './index'
 import {fetchProducts} from '../store/allProducts'
 import {Link} from 'react-router-dom'
 
 export class AllProducts extends React.Component {
+  constructor() {
+    super()
+    this.state = {
+      currentPage: 1,
+      itemsPerPage: 12
+    }
+    this.paginate = this.paginate.bind(this)
+  }
+
   componentDidMount() {
     this.props.getProducts()
   }
 
+  paginate(pageNumber) {
+    this.setState({
+      currentPage: pageNumber
+    })
+  }
+
   render() {
+    const indexOfLastPost = this.state.currentPage * this.state.itemsPerPage
+    const indexOfFirstPost = indexOfLastPost - this.state.itemsPerPage
+    const products = this.props.products.slice(
+      indexOfFirstPost,
+      indexOfLastPost
+    )
+
     return (
       <div className="background">
         <header>
@@ -20,9 +42,11 @@ export class AllProducts extends React.Component {
             </Link>
           )}
         </header>
-        <ProductList
-          products={this.props.products}
-          fromPortal={this.props.fromPortal}
+        <ProductList products={products} fromPortal={this.props.fromPortal} />
+        <Pagination
+          itemsPerPage={this.state.itemsPerPage}
+          totalItems={this.props.products.length}
+          paginate={this.paginate}
         />
       </div>
     )
