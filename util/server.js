@@ -11,7 +11,7 @@ const handle404 = (trueFalse, message, status) => {
 const checkUser = (req, res, next) => {
   const user = req.user
   const reqId = req.params.userId
-  if (user && user.id === reqId) {
+  if (user && parseInt(user.id) === parseInt(reqId)) {
     next()
   } else {
     const err = new Error('Access Denied')
@@ -34,7 +34,7 @@ const checkAdmin = (req, res, next) => {
 const userOrAdmin = (req, res, next) => {
   const user = req.user
   const reqId = req.params.userId
-  if (user && (user.id === reqId || user.isAdmin)) {
+  if (user && (parseInt(user.id) === parseInt(reqId) || user.isAdmin)) {
     next()
   } else {
     const err = new Error('Access Denied')
