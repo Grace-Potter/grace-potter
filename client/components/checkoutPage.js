@@ -1,5 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import {loadStripe} from '@stripe/stripe-js'
 import CartList from './CartList'
 import {
   fetchCart,
@@ -18,6 +19,8 @@ import {
   Row
 } from 'reactstrap'
 
+//const stripePromise = loadStripe(STRIPE_PUBLISHABLE_KEY)
+
 class checkoutPage extends React.Component {
   constructor() {
     super()
@@ -30,6 +33,22 @@ class checkoutPage extends React.Component {
   }
 
   handleCheckout() {
+    /*****************************
+    ***** STRIPE INTEGRATION *****
+
+    // Stripe: Call your backend to create the Checkout Session—see previous step
+    // AM: Axios request??
+    const { sessionId } = await createCheckoutSession();
+    // When the customer clicks on the button, redirect them to Checkout.
+    const stripe = await stripePromise;
+    const { error } = await stripe.redirectToCheckout({
+      sessionId,
+    });
+    // If `redirectToCheckout` fails due to a browser or network
+    // error, display the localized error message to your customer
+    // using `error.message`.
+
+    ******************************/
     // console.log('checkout handler works')
     // console.log('user id:', this.props.user.id)
     this.props.thunkCheckoutCart(this.props.user.id)
