@@ -47,29 +47,31 @@ class singleProductView extends Component {
     // )
 
     return (
-      <Card className="text-center singleProduct shadow p-3 mb-5 bg-white rounded">
-        <Row>
-          <Col className="col-6">
-            <CardImg top src={product.imageUrl} alt="Card image cap" />
-          </Col>
-          <Col>
-            <CardBody>
-              <CardTitle>
-                <h2>{product.name}</h2>
-              </CardTitle>
-              <CardText>{`${product.description}`}</CardText>
-              <CardText>{`$${product.price / 100}`}</CardText>
+      <div className="pageView">
+        <Card className="text-center singleProduct shadow p-3 mb-5 bg-white rounded">
+          <Row>
+            <Col className="col-6">
+              <CardImg top src={product.imageUrl} alt="Card image cap" />
+            </Col>
+            <Col>
+              <CardBody>
+                <CardTitle>
+                  <h2>{product.name}</h2>
+                </CardTitle>
+                <CardText>{`${product.description}`}</CardText>
+                <CardText>{`$${product.price / 100}`}</CardText>
 
-              <Button
-                color="primary"
-                onClick={() => this.handleAddToCart(product.id)}
-              >
-                Add to cart
-              </Button>
-            </CardBody>
-          </Col>
-        </Row>
-      </Card>
+                <Button
+                  color="primary"
+                  onClick={() => this.handleAddToCart(product.id)}
+                >
+                  Add to cart
+                </Button>
+              </CardBody>
+            </Col>
+          </Row>
+        </Card>
+      </div>
     )
   }
 }

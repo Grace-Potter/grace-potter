@@ -43,30 +43,36 @@ const AuthForm = props => {
     //   </form>
     //   <a href="/auth/google">{displayName} with Google</a>
     // </div>
-    <Card className="auth shadow p-3 mb-5 bg-white rounded">
-      <CardBody>
-        <CardTitle>
-          <h4>{displayName}</h4>
-        </CardTitle>
-        <Form onSubmit={handleSubmit} name={name}>
-          <FormGroup>
-            <Label htmlFor="email">Email</Label>
-            <Input type="email" name="email" placeholder="example@email.com" />
-          </FormGroup>
-          <FormGroup>
-            <Label htmlFor="password">Password</Label>
-            <Input type="password" name="password" placeholder="1Jdhyw3uaB" />
-          </FormGroup>
-          <FormGroup>
-            <Button type="submit">Submit</Button>
-          </FormGroup>
-          <FormGroup>
-            <a href="/auth/google">{displayName} with Google</a>
-          </FormGroup>
-          {error && error.response && <div> {error.response.data} </div>}
-        </Form>
-      </CardBody>
-    </Card>
+    <div className="pageView">
+      <Card className="auth shadow p-3 mb-5 bg-white rounded">
+        <CardBody>
+          <CardTitle>
+            <h4>{displayName}</h4>
+          </CardTitle>
+          <Form onSubmit={handleSubmit} name={name}>
+            <FormGroup>
+              <Label htmlFor="email">Email</Label>
+              <Input
+                type="email"
+                name="email"
+                placeholder="example@email.com"
+              />
+            </FormGroup>
+            <FormGroup>
+              <Label htmlFor="password">Password</Label>
+              <Input type="password" name="password" placeholder="1Jdhyw3uaB" />
+            </FormGroup>
+            <FormGroup>
+              <Button type="submit">Submit</Button>
+            </FormGroup>
+            <FormGroup>
+              <a href="/auth/google">{displayName} with Google</a>
+            </FormGroup>
+            {error && error.response && <div> {error.response.data} </div>}
+          </Form>
+        </CardBody>
+      </Card>
+    </div>
   )
 }
 

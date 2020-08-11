@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import ProductList from './ProductList'
 import {fetchProducts} from '../store/allProducts'
 import {Link} from 'react-router-dom'
+import {Button} from 'reactstrap'
 
 export class AllProducts extends React.Component {
   componentDidMount() {
@@ -11,12 +12,12 @@ export class AllProducts extends React.Component {
 
   render() {
     return (
-      <div className="background">
+      <div className="pageView">
         <header>
           <h3>All Products</h3>
           {this.props.fromPortal && (
             <Link to="/admin-portal/manageproducts/addproduct">
-              <button type="button">Add Product</button>
+              <Button type="button">Add Product</Button>
             </Link>
           )}
         </header>

@@ -1,6 +1,7 @@
 h1 {
   margin-left: 0.5em;
   padding-top: 0.5em;
+  margin-bottom: 0em;
 }
 
 h3 {
@@ -62,7 +63,7 @@ ul {
 .auth {
   margin-left: 25em;
   margin-right: 25em;
-  margin-top: 2em;
+  margin-top: 4em;
 }
 
 .checkoutProduct {
@@ -76,11 +77,35 @@ ul {
   text-emphasis: bold;
 }
 
+.pageView {
+  padding-top: 1em;
+  background-color: #e7cfbc;
+}
+
 .background {
   background-color: #e7cfbc;
-  padding-top: 1em;
 }
 
 .full {
   width: 100%;
+}
+
+.cart {
+  text-align: right;
+  margin-right: 1em;
+}
+
+.navbar {
+  margin-left: 1em;
+  margin-right: 1em;
+  /* display: flex;
+  flex-direction: row;
+  margin-top: 0em;
+  margin-bottom: 0em;
+  padding-bottom: 0em;
+  padding-top: 0em; */
+}
+
+.navLeft {
+  margin-right: 55em;
 }
