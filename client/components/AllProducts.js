@@ -9,7 +9,7 @@ export class AllProducts extends React.Component {
     super()
     this.state = {
       currentPage: 1,
-      itemsPerPage: 2,
+      itemsPerPage: 12
     }
     this.paginate = this.paginate.bind(this)
   }
@@ -20,7 +20,7 @@ export class AllProducts extends React.Component {
 
   paginate(pageNumber) {
     this.setState({
-      currentPage: pageNumber,
+      currentPage: pageNumber
     })
   }
 
@@ -53,12 +53,12 @@ export class AllProducts extends React.Component {
   }
 }
 
-const mapState = (state) => ({
-  products: state.allProducts,
+const mapState = state => ({
+  products: state.allProducts
 })
 
-const mapDispatch = (dispatch) => ({
-  getProducts: () => dispatch(fetchProducts()),
+const mapDispatch = dispatch => ({
+  getProducts: () => dispatch(fetchProducts())
 })
 
 export default connect(mapState, mapDispatch)(AllProducts)
