@@ -8,7 +8,9 @@ const Category = require('./category')
 User.hasMany(Order)
 Order.belongsTo(User)
 
-GuestUser.hasMany(Order)
+GuestUser.hasMany(Order, {
+  foreignKey: 'guestUserId'
+})
 Order.belongsTo(GuestUser)
 
 Order.belongsToMany(Product, {through: OrderItem})

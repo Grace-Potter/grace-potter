@@ -30,24 +30,20 @@ router.post('/:userId/newCart/', userOrAdmin, async (req, res, next) => {
 })
 
 // get current *guest* cart
-router.get(
-  '/guestCart/:userId/currentCart/',
-  userOrAdmin,
-  async (req, res, next) => {
-    try {
-      const order = await Order.findAll({
-        include: {all: true},
-        where: {
-          guestUserId: req.params.userId,
-          status: 'InProgress'
-        }
-      })
-      res.json(order)
-    } catch (err) {
-      next(err)
-    }
+router.get('/guestCart/:userId/currentCart/', async (req, res, next) => {
+  try {
+    const order = await Order.findAll({
+      include: {all: true},
+      where: {
+        guestUserId: req.params.userId,
+        status: 'InProgress'
+      }
+    })
+    res.json(order)
+  } catch (err) {
+    next(err)
   }
-)
+})
 
 // get current cart
 router.get('/:userId/currentCart/', userOrAdmin, async (req, res, next) => {
