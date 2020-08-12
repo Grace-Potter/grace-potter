@@ -58,6 +58,8 @@ ul {
   margin-left: 10em;
   margin-right: 10em;
   margin-top: 2em;
+  align-content: center;
+  align-items: center;
 }
 
 .auth {
@@ -105,7 +107,16 @@ ul {
   padding-bottom: 0em;
   padding-top: 0em; */
 }
-
+/*
 .navLeft {
   margin-right: 55em;
+} */
+
+.indent {
+  margin-left: 2em;
+}
+
+.center {
+  align-items: center;
+  align-content: center;
 }

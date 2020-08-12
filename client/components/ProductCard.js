@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {deleteproduct} from '../store/allProducts'
 import {Card, CardImg, CardText, CardBody, CardTitle, Button} from 'reactstrap'
+import AddSuccess from './toast'
 
 // const ProductCard = props => {
 //   const {name, imageUrl, id, fromPortal, removeProduct} = props
@@ -43,7 +44,13 @@ const ProductCard = props => {
             </Link>
           )}
           {fromPortal && (
-            <Button color="danger" onClick={() => removeProduct(id)}>
+            <Button
+              color="danger"
+              onClick={() => {
+                removeProduct(id)
+                AddSuccess()
+              }}
+            >
               delete
             </Button>
           )}

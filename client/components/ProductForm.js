@@ -1,4 +1,17 @@
 import React from 'react'
+import {
+  Button,
+  Form,
+  FormGroup,
+  Label,
+  Input,
+  FormText,
+  Col,
+  Card,
+  CardBody,
+  CardTitle,
+  Row
+} from 'reactstrap'
 
 const ProductForm = props => {
   const {
@@ -12,45 +25,74 @@ const ProductForm = props => {
   } = props
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label htmlFor="name">Display Name</label>
-      <input name="name" type="text" value={name} onChange={handleChange} />
+    <div className="pageView">
+      <Form
+        className="singleProduct shadow p-3 mb-5 bg-white rounded"
+        onSubmit={handleSubmit}
+      >
+        <Row className="center">
+          <FormGroup className="indent">
+            <Label htmlFor="name">Display Name</Label>
+            <Input
+              name="name"
+              type="text"
+              value={name}
+              onChange={handleChange}
+            />
+          </FormGroup>
 
-      <label htmlFor="price">Price</label>
-      <input
-        name="price"
-        type="number"
-        min="0"
-        value={price}
-        onChange={handleChange}
-      />
+          <FormGroup>
+            <Label htmlFor="price">Price</Label>
+            <Input
+              name="price"
+              type="number"
+              min="0"
+              value={price}
+              onChange={handleChange}
+            />
+          </FormGroup>
 
-      <label htmlFor="quantity">Quantity</label>
-      <input
-        name="quantity"
-        type="number"
-        min="0"
-        value={quantity}
-        onChange={handleChange}
-      />
+          <FormGroup>
+            <Label htmlFor="quantity">Quantity</Label>
+            <Input
+              name="quantity"
+              type="number"
+              min="0"
+              value={quantity}
+              onChange={handleChange}
+            />
+          </FormGroup>
 
-      <label htmlFor="imageUrl">Image URL</label>
-      <input
-        name="imageUrl"
-        type="url"
-        value={imageUrl}
-        onChange={handleChange}
-      />
+          <FormGroup>
+            <Label htmlFor="imageUrl">Image URL</Label>
+            <Input
+              name="imageUrl"
+              type="url"
+              value={imageUrl}
+              onChange={handleChange}
+            />
+          </FormGroup>
+        </Row>
 
-      <label htmlFor="description">Description</label>
-      <textarea
-        name="description"
-        value={description}
-        onChange={handleChange}
-      />
+        <Row>
+          <FormGroup className="indent">
+            <Label htmlFor="description">Description</Label>
+            <Input
+              type="textarea"
+              name="description"
+              value={description}
+              onChange={handleChange}
+            />
+          </FormGroup>
+        </Row>
 
-      <button type="submit">Submit</button>
-    </form>
+        <Row>
+          <FormGroup className="indent">
+            <Button type="submit">Add Product</Button>
+          </FormGroup>
+        </Row>
+      </Form>
+    </div>
   )
 }
 
