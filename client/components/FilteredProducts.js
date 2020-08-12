@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import {ProductList, Pagination} from './index'
 
 const FilteredProducts = props => {
@@ -11,6 +11,12 @@ const FilteredProducts = props => {
   const indexOfFirstPost = indexOfLastPost - itemsPerPage
 
   const products = props.products.slice(indexOfFirstPost, indexOfLastPost)
+
+  // reset to first page whenever a new products list is sent
+  // i.e. when switching categories
+  useEffect(() => {
+    setCurrentPage(1)
+  }, [props.products])
 
   const paginate = pageNumber => setCurrentPage(pageNumber)
 
