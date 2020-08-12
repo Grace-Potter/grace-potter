@@ -69,7 +69,6 @@ const ProductForm = props => {
               sm={{size: 10}}
               type="textarea"
               name="description"
-              placeholder="Describe the product. Think, why would someone want this product and "
               value={description}
               onChange={handleChange}
             />
