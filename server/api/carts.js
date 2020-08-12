@@ -42,15 +42,18 @@ router.get('/guestCart/:userId/currentCart/', async (req, res, next) => {
         guestUserId: req.params.userId
       }
     })
-    console.log('---GUEST USER ID---', guestUser[0].dataValues)
-    const order = await Order.findAll({
+
+    const order = await Order.findOrCreate({
       include: {all: true},
       where: {
         guestUserId: guestUser[0].dataValues.id,
         status: 'InProgress'
       }
     })
-    res.json(order)
+
+    const cart = [].push(order)
+
+    res.json(cart)
   } catch (err) {
     next(err)
   }
