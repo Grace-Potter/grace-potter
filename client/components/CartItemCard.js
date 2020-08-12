@@ -7,13 +7,15 @@ import {
   CardText,
   Button,
   Col,
-  Row
+  Row,
+  Label,
+  Input
 } from 'reactstrap'
 
 const CartItemCard = props => {
   const {name, imageUrl, id, price, orderItem} = props
   return (
-    <Card className="text-center checkoutProduct shadow p-3 mb-5 bg-white rounded">
+    <Card className="checkoutProduct shadow p-3 mb-5 bg-white rounded">
       <Row>
         <Col className="col-6">
           <CardImg top src={imageUrl} alt="Card image cap" />
@@ -23,11 +25,18 @@ const CartItemCard = props => {
             <CardTitle>
               <h2>{name}</h2>
             </CardTitle>
-            <CardText>{`$${price / 100}`}</CardText>
+            <CardText>Price: {`$${price / 100}`}</CardText>
             <Row>
               <Col>
-                <label htmlFor="qty">Qty:</label>
-                <select name="qty" id={id} onChange={props.handleChange}>
+                <Label htmlFor="qty">Quantity:</Label>
+              </Col>
+              <Col>
+                <Input
+                  type="select"
+                  name="qty"
+                  id={id}
+                  onChange={props.handleChange}
+                >
                   <option value={orderItem.quantity} selected disabled hidden>
                     {orderItem.quantity}
                   </option>
@@ -36,7 +45,7 @@ const CartItemCard = props => {
                   <option value={3}>3</option>
                   <option value={4}>4</option>
                   <option value={5}>5</option>
-                </select>
+                </Input>
               </Col>
               <Col>
                 <Button color="danger" onClick={() => props.handleDelete(id)}>
