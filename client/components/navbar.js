@@ -36,7 +36,7 @@ const Navigate = ({handleClick, isLoggedIn, isAdmin}) => (
  */
 const mapState = state => {
   return {
-    isLoggedIn: !!state.user.id,
+    isLoggedIn: !!state.user.email,
     isAdmin: !!state.user.isAdmin
   }
 }
