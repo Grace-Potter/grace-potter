@@ -1,17 +1,5 @@
 import React from 'react'
-import {
-  Button,
-  Form,
-  FormGroup,
-  Label,
-  Input,
-  FormText,
-  Col,
-  Card,
-  CardBody,
-  CardTitle,
-  Row
-} from 'reactstrap'
+import {Button, Form, FormGroup, Label, Input, Row, Col} from 'reactstrap'
 
 const ProductForm = props => {
   const {
@@ -27,12 +15,12 @@ const ProductForm = props => {
   return (
     <div className="pageView">
       <Form
-        className="singleProduct shadow p-3 mb-5 bg-white rounded"
+        className="addProduct shadow p-3 mb-5 bg-white rounded"
         onSubmit={handleSubmit}
       >
         <Row className="center">
           <FormGroup className="indent">
-            <Label htmlFor="name">Display Name</Label>
+            <Label htmlFor="name">Product Name</Label>
             <Input
               name="name"
               type="text"
@@ -75,20 +63,22 @@ const ProductForm = props => {
         </Row>
 
         <Row>
-          <FormGroup className="indent">
+          <Col>
             <Label htmlFor="description">Description</Label>
             <Input
+              sm={{size: 10}}
               type="textarea"
               name="description"
+              placeholder="Describe the product. Think, why would someone want this product and "
               value={description}
               onChange={handleChange}
             />
-          </FormGroup>
+          </Col>
         </Row>
 
         <Row>
           <FormGroup className="indent">
-            <Button type="submit">Add Product</Button>
+            <Button type="submit">Save Product Info</Button>
           </FormGroup>
         </Row>
       </Form>

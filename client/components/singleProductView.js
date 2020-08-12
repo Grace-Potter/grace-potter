@@ -23,28 +23,10 @@ class singleProductView extends Component {
     this.props.fetchProduct(id)
   }
   handleAddToCart(productId) {
-    // console.log('addToCart button works')
-    // console.log('user id: ', this.props.user.id)
-    // console.log('product id: ', productId)
     this.props.thunkAddCartItem(this.props.user.id, productId)
   }
   render() {
     const product = this.props.state
-    // return (
-    //   <div>
-    //     <img src={product.imageUrl} />
-    //     <h2>{product.name}</h2>
-    //     <div>Description: {product.description}</div>
-    //     <div>Price: {`$${product.price}`}</div>
-    //     <div>Qty: {product.quantity}</div>
-    //     <button
-    //       type="button"
-    //       onClick={() => this.handleAddToCart(product.id)}
-    //     >
-    //       Add to cart
-    //     </button>
-    //   </div>
-    // )
 
     return (
       <div className="pageView">

@@ -4,13 +4,16 @@ import {UserCard} from './index'
 const UserList = ({users}) => {
   console.log(users)
   return (
-    <ul>
-      {users.length ? (
-        users.map(user => <UserCard key={user.id} {...user} />)
-      ) : (
-        <h3>No users to dispaly</h3>
-      )}
-    </ul>
+    <div>
+      <h3>User emails</h3>
+      <ul>
+        {users.length ? (
+          users.map(user => <UserCard key={user.id} {...user} />)
+        ) : (
+          <p>No users to dispaly</p>
+        )}
+      </ul>
+    </div>
   )
 }
 

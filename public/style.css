@@ -62,6 +62,26 @@ ul {
   align-items: center;
 }
 
+.addProduct {
+  margin-left: 16em;
+  margin-right: 16em;
+  margin-top: 2em;
+  align-content: center;
+  align-items: center;
+}
+
+.singleUser {
+  margin-left: 31em;
+  margin-right: 31em;
+  margin-top: 2em;
+}
+
+.userList {
+  margin-left: 33em;
+  margin-right: 33em;
+  margin-top: 2em;
+}
+
 .auth {
   margin-left: 25em;
   margin-right: 25em;
@@ -100,17 +120,7 @@ ul {
 .navbar {
   margin-left: 1em;
   margin-right: 1em;
-  /* display: flex;
-  flex-direction: row;
-  margin-top: 0em;
-  margin-bottom: 0em;
-  padding-bottom: 0em;
-  padding-top: 0em; */
 }
-/*
-.navLeft {
-  margin-right: 55em;
-} */
 
 .indent {
   margin-left: 2em;
