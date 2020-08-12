@@ -70,9 +70,15 @@ export const thunkUpdateCartItem = (
   quantity
 ) => async dispatch => {
   try {
-    await axios.put(
-      `/api/carts/${userId}/currentCart/product/${productId}/quantity/${quantity}`
-    )
+    if (Number.isInteger(userId)) {
+      await axios.put(
+        `/api/carts/${userId}/currentCart/product/${productId}/quantity/${quantity}`
+      )
+    } else {
+      await axios.put(
+        `/api/carts/guestCart/${userId}/currentCart/product/${productId}/quantity/${quantity}`
+      )
+    }
     dispatch(fetchCart(userId))
   } catch (error) {
     console.log(error)
