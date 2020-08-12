@@ -91,15 +91,27 @@ export const thunkCheckoutCart = (
   orderId
 ) => async dispatch => {
   try {
-    let {data} = await axios.get(`/api/carts/${userId}/currentCart/checkout`)
-    if (!data[0]) {
-      await Promise.all([
-        axios.post(`/api/nodemailer/${userEmail}/${orderId}`),
-        axios.put(`/api/carts/${userId}/currentCart/checkout`)
-      ])
+    if (Number.isInteger(userId)) {
+      let {data} = await axios.get(`/api/carts/${userId}/currentCart/checkout`)
+      if (!data[0]) {
+        await Promise.all([
+          axios.post(`/api/nodemailer/${userEmail}/${orderId}`),
+          axios.put(`/api/carts/${userId}/currentCart/checkout`)
+        ])
+      } else {
+        console.log('list of out of stock items', data[0])
+      }
     } else {
-      console.log('list of out of stock items', data[0])
+      let {data} = await axios.get(
+        `/api/carts/guestCart/${userId}/currentCart/checkout`
+      )
+      if (!data[0]) {
+        await axios.put(`/api/carts/guestCart/${userId}/currentCart/checkout`)
+      } else {
+        console.log('list of out of stock items', data[0])
+      }
     }
+
     dispatch(fetchCart(userId))
   } catch (error) {
     console.log(error)

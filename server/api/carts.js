@@ -160,6 +160,94 @@ router.put(
   }
 )
 
+// check if all *guest* items about to be checked out are in stock
+router.get(
+  '/guestCart/:userId/currentCart/checkout',
+  async (req, res, next) => {
+    try {
+      const guestUser = await GuestUser.findAll({
+        where: {
+          guestUserId: req.params.userId
+        }
+      })
+
+      const order = await Order.findAll({
+        where: {
+          guestUserId: guestUser[0].dataValues.id,
+          status: 'InProgress'
+        }
+      })
+
+      let outOfStockItems = []
+      order[0].dataValues.products.forEach(item => {
+        if (item.quantity < item.orderItem.quantity) {
+          outOfStockItems.push(item)
+        }
+      })
+
+      res.json(outOfStockItems)
+    } catch (err) {
+      next(err)
+    }
+  }
+)
+
+// complete *guest* checkout
+router.put(
+  '/guestCart/:userId/currentCart/checkout',
+  async (req, res, next) => {
+    try {
+      const guestUser = await GuestUser.findAll({
+        where: {
+          guestUserId: req.params.userId
+        }
+      })
+
+      const order = await Order.findAll({
+        where: {
+          guestUserId: guestUser[0].dataValues.id,
+          status: 'InProgress'
+        }
+      })
+
+      //update all inventory items
+      order[0].dataValues.products.forEach(async item => {
+        await Product.update(
+          {
+            quantity: item.quantity - item.orderItem.quantity
+          },
+          {
+            where: {
+              id: item.orderItem.productId
+            }
+          }
+        )
+      })
+
+      // changes cart status to Complete
+      await Order.update(
+        {
+          status: 'Complete'
+        },
+        {
+          where: {
+            guestUserId: guestUser[0].dataValues.id
+          }
+        }
+      )
+
+      // create a new cart whose status is InProgress
+      await Order.create({
+        guestUserId: guestUser[0].dataValues.id
+      })
+
+      res.sendStatus(201)
+    } catch (err) {
+      next(err)
+    }
+  }
+)
+
 // add item to cart
 router.post(
   '/:userId/currentCart/product/:productId',
