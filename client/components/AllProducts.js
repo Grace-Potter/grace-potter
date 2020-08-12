@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {ProductList, Pagination, Dropdown} from './index'
+import {Dropdown, FilteredProducts} from './index'
 import {fetchProducts, fetchCategories} from '../store/index'
 import {Link} from 'react-router-dom'
 
@@ -8,24 +8,15 @@ export class AllProducts extends React.Component {
   constructor() {
     super()
     this.state = {
-      currentPage: 1,
-      itemsPerPage: 12,
       category: 'All Products',
       filter: -1
     }
-    this.paginate = this.paginate.bind(this)
     this.handleChange = this.handleChange.bind(this)
   }
 
   componentDidMount() {
     this.props.getProducts()
     this.props.getCategories()
-  }
-
-  paginate(pageNumber) {
-    this.setState({
-      currentPage: pageNumber
-    })
   }
 
   handleChange(event) {
@@ -36,15 +27,10 @@ export class AllProducts extends React.Component {
   }
 
   render() {
-    const indexOfLastPost = this.state.currentPage * this.state.itemsPerPage
-    const indexOfFirstPost = indexOfLastPost - this.state.itemsPerPage
-    // console.log('HEY', this.props.products[0])
-    const products = this.props.products
-      .filter(item => {
-        if (this.state.filter === -1) return true
-        return item.categoryId === this.state.filter
-      })
-      .slice(indexOfFirstPost, indexOfLastPost)
+    const products = this.props.products.filter(item => {
+      if (this.state.filter === -1) return true
+      return item.categoryId === this.state.filter
+    })
 
     return (
       <div className="background">
@@ -63,11 +49,9 @@ export class AllProducts extends React.Component {
             </Link>
           )}
         </header>
-        <ProductList products={products} fromPortal={this.props.fromPortal} />
-        <Pagination
-          itemsPerPage={this.state.itemsPerPage}
-          totalItems={this.props.products.length}
-          paginate={this.paginate}
+        <FilteredProducts
+          products={products}
+          fromPortal={this.props.fromPortal}
         />
       </div>
     )
