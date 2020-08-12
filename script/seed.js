@@ -136,9 +136,23 @@ async function seed() {
 
   console.log(`seeded ${users.length} users`)
 
+  // Seed real products
   for (let i = 0; i < products.length; i++) {
     const instance = await Product.create(products[i])
     products[i] = instance
+  }
+
+  // seed dummy products
+  const minPrice = 45 * 100 // $45
+  const maxPrice = 150 * 100 // $150
+  for (let i = 0; i < 100; i++) {
+    const product = await Product.create({
+      name: loremIpsum({count: 2, units: 'word'}),
+      price: Math.floor(Math.random() * (maxPrice - minPrice) + minPrice),
+      description: loremIpsum({count: 4, units: 'sentences'}),
+      categoryId: categories[Math.floor(Math.random() * categories.length)].id
+    })
+    products.push(product)
   }
 
   console.log(`seeded ${products.length} products`)

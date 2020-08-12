@@ -8,16 +8,6 @@ import {
   thunkUpdateCartItem,
   thunkCheckoutCart
 } from '../store/cart'
-import {
-  CardImg,
-  CardTitle,
-  Card,
-  CardBody,
-  CardText,
-  Button,
-  Col,
-  Row
-} from 'reactstrap'
 
 //const stripePromise = loadStripe(STRIPE_PUBLISHABLE_KEY)
 
@@ -53,7 +43,12 @@ class checkoutPage extends React.Component {
     // using `error.message`.
 
     ******************************/
-    this.props.thunkCheckoutCart(this.props.user.id)
+    console.log(this.props)
+    this.props.thunkCheckoutCart(
+      this.props.user.id,
+      this.props.user.email,
+      this.props.cart[0].id
+    )
   }
 
   handleDelete(productId) {
@@ -98,7 +93,8 @@ const mapDispatch = dispatch => ({
     dispatch(thunkDeleteCartItem(userId, productId)),
   thunkUpdateCartItem: (userId, productId, quantity) =>
     dispatch(thunkUpdateCartItem(userId, productId, quantity)),
-  thunkCheckoutCart: userId => dispatch(thunkCheckoutCart(userId))
+  thunkCheckoutCart: (userId, userEmail, orderId) =>
+    dispatch(thunkCheckoutCart(userId, userEmail, orderId))
 })
 
 export default connect(mapState, mapDispatch)(checkoutPage)
