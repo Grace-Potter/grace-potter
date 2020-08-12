@@ -35,7 +35,13 @@ export const fetchCart = userId => async dispatch => {
 
 export const thunkAddCartItem = (userId, productId) => async dispatch => {
   try {
-    await axios.post(`/api/carts/${userId}/currentCart/product/${productId}`)
+    if (Number.isInteger(userId)) {
+      await axios.post(`/api/carts/${userId}/currentCart/product/${productId}`)
+    } else {
+      await axios.post(
+        `/api/carts/guestCart/${userId}/currentCart/product/${productId}`
+      )
+    }
   } catch (error) {
     console.log(error)
   }

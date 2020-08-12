@@ -192,6 +192,39 @@ router.post(
   }
 )
 
+// add item to *guest* cart
+router.post(
+  '/guestCart/:userId/currentCart/product/:productId',
+  async (req, res, next) => {
+    try {
+      const guestUser = await GuestUser.findOrCreate({
+        where: {
+          guestUserId: req.params.userId
+        }
+      })
+
+      const order = await Order.findOrCreate({
+        include: {all: true},
+        where: {
+          guestUserId: guestUser[0].dataValues.id,
+          status: 'InProgress'
+        }
+      })
+
+      await OrderItem.findOrCreate({
+        where: {
+          productId: req.params.productId,
+          orderId: order[0].id
+        }
+      })
+
+      res.sendStatus(201)
+    } catch (err) {
+      next(err)
+    }
+  }
+)
+
 // update quantity of specific product in cart
 router.put(
   '/:userId/currentCart/product/:productId/quantity/:quantity',
