@@ -21,6 +21,7 @@ Product.belongsTo(Category)
 
 module.exports = {
   User,
+  GuestUser,
   Product,
   Order,
   OrderItem,
