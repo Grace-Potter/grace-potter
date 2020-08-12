@@ -49,7 +49,15 @@ export const thunkAddCartItem = (userId, productId) => async dispatch => {
 
 export const thunkDeleteCartItem = (userId, productId) => async dispatch => {
   try {
-    await axios.delete(`/api/carts/${userId}/currentCart/product/${productId}`)
+    if (Number.isInteger(userId)) {
+      await axios.delete(
+        `/api/carts/${userId}/currentCart/product/${productId}`
+      )
+    } else {
+      await axios.delete(
+        `/api/carts/guestCart/${userId}/currentCart/product/${productId}`
+      )
+    }
     dispatch(fetchCart(userId))
   } catch (error) {
     console.log(error)

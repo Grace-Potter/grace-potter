@@ -30,11 +30,6 @@ router.post('/:userId/newCart/', userOrAdmin, async (req, res, next) => {
 })
 
 // get current *guest* cart
-// sequelize may have automatically made the guestUserId field to be an integer
-// possible solution is just to make a manual guestUserId
-// or find query to make user in guestUserId, get their numerical id (PK)
-// find guest in GuestUser.findAll where: guestUserId = req.params.userId
-// then do same query i already have but instead of req.params.userId do guestuser.id or w/e i called it
 router.get('/guestCart/:userId/currentCart/', async (req, res, next) => {
   try {
     const guestUser = await GuestUser.findOrCreate({
@@ -266,6 +261,38 @@ router.delete(
       const order = await Order.findAll({
         where: {
           userId: req.params.userId,
+          status: 'InProgress'
+        }
+      })
+
+      await OrderItem.destroy({
+        where: {
+          orderId: order[0].id,
+          productId: req.params.productId
+        }
+      })
+
+      res.sendStatus(200)
+    } catch (err) {
+      next(err)
+    }
+  }
+)
+
+// delete item from *guest* cart
+router.delete(
+  '/guestCart/:userId/currentCart/product/:productId',
+  async (req, res, next) => {
+    try {
+      const guestUser = await GuestUser.findAll({
+        where: {
+          guestUserId: req.params.userId
+        }
+      })
+
+      const order = await Order.findAll({
+        where: {
+          userId: guestUser[0].dataValues.id,
           status: 'InProgress'
         }
       })
