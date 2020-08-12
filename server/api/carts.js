@@ -289,10 +289,10 @@ router.delete(
           guestUserId: req.params.userId
         }
       })
-
+      console.log('-----USERID-----', guestUser[0].dataValues.id)
       const order = await Order.findAll({
         where: {
-          userId: guestUser[0].dataValues.id,
+          guestUserId: guestUser[0].dataValues.id,
           status: 'InProgress'
         }
       })
