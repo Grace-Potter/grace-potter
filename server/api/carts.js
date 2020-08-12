@@ -172,6 +172,9 @@ router.get(
       })
 
       const order = await Order.findAll({
+        include: {
+          all: true
+        },
         where: {
           guestUserId: guestUser[0].dataValues.id,
           status: 'InProgress'
@@ -204,6 +207,9 @@ router.put(
       })
 
       const order = await Order.findAll({
+        include: {
+          all: true
+        },
         where: {
           guestUserId: guestUser[0].dataValues.id,
           status: 'InProgress'
