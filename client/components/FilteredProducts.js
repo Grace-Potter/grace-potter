@@ -14,9 +14,9 @@ const FilteredProducts = props => {
 
   // reset to first page whenever a new products list is sent
   // i.e. when switching categories
-  useEffect(() => {
-    setCurrentPage(1)
-  }, [props.products])
+  // useEffect(() => {
+  //   setCurrentPage(1)
+  // }, [props.products])
 
   const paginate = pageNumber => setCurrentPage(pageNumber)
 
