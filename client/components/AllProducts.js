@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {ProductList, Pagination} from './index'
-import {fetchProducts} from '../store/allProducts'
+import {ProductList, Pagination, Dropdown} from './index'
+import {fetchProducts, fetchCategories} from '../store/index'
 import {Link} from 'react-router-dom'
 
 export class AllProducts extends React.Component {
@@ -9,13 +9,17 @@ export class AllProducts extends React.Component {
     super()
     this.state = {
       currentPage: 1,
-      itemsPerPage: 12
+      itemsPerPage: 12,
+      category: 'All Products',
+      filter: -1
     }
     this.paginate = this.paginate.bind(this)
+    this.handleChange = this.handleChange.bind(this)
   }
 
   componentDidMount() {
     this.props.getProducts()
+    this.props.getCategories()
   }
 
   paginate(pageNumber) {
@@ -24,18 +28,35 @@ export class AllProducts extends React.Component {
     })
   }
 
+  handleChange(event) {
+    this.setState({
+      category: event.target.name,
+      filter: parseInt(event.target.value, 10)
+    })
+  }
+
   render() {
     const indexOfLastPost = this.state.currentPage * this.state.itemsPerPage
     const indexOfFirstPost = indexOfLastPost - this.state.itemsPerPage
-    const products = this.props.products.slice(
-      indexOfFirstPost,
-      indexOfLastPost
-    )
+    // console.log('HEY', this.props.products[0])
+    const products = this.props.products
+      .filter(item => {
+        if (this.state.filter === -1) return true
+        return item.categoryId === this.state.filter
+      })
+      .slice(indexOfFirstPost, indexOfLastPost)
 
     return (
       <div className="background">
         <header>
-          <h3>All Products</h3>
+          <h3>{this.state.category}</h3>
+
+          <Dropdown
+            handleChange={this.handleChange}
+            items={this.props.categories}
+            title="Categories"
+          />
+
           {this.props.fromPortal && (
             <Link to="/admin-portal/manageproducts/addproduct">
               <button type="button">Add Product</button>
@@ -54,11 +75,13 @@ export class AllProducts extends React.Component {
 }
 
 const mapState = state => ({
-  products: state.allProducts
+  products: state.allProducts,
+  categories: state.categories
 })
 
 const mapDispatch = dispatch => ({
-  getProducts: () => dispatch(fetchProducts())
+  getProducts: () => dispatch(fetchProducts()),
+  getCategories: () => dispatch(fetchCategories())
 })
 
 export default connect(mapState, mapDispatch)(AllProducts)
