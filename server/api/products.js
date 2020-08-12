@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {Product, Category} = require('../db/models')
+const {Product} = require('../db/models')
 const _ = require('lodash')
 const {cyan} = require('chalk')
 const {handle404, checkAdmin} = require('../../util/server')

@@ -68,8 +68,8 @@ class checkoutPage extends React.Component {
       return <h1>Loading</h1>
     } else {
       return (
-        <div>
-          <h1>Shopping Cart</h1>
+        <div className="pageView">
+          <h3>Shopping Cart</h3>
           <CartList
             cart={this.props.cart[0].products}
             handleCheckout={this.handleCheckout}

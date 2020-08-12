@@ -11,10 +11,10 @@ import {
 class AdminPortal extends React.Component {
   render() {
     return (
-      <div>
-        <nav>
-          <h1>Admin Portal</h1>
-          <Link to="/admin-portal/manageproducts">Manage Producs</Link>
+      <div className="background pageView">
+        <h3>Admin Portal</h3>
+        <nav className="navbar">
+          <Link to="/admin-portal/manageproducts">Manage Products</Link>
           <Link to="/admin-portal/manageusers">Manage Users</Link>
         </nav>
         <Switch>

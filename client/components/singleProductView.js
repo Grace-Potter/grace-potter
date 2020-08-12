@@ -23,53 +23,37 @@ class singleProductView extends Component {
     this.props.fetchProduct(id)
   }
   handleAddToCart(productId) {
-    // console.log('addToCart button works')
-    // console.log('user id: ', this.props.user.id)
-    // console.log('product id: ', productId)
     this.props.thunkAddCartItem(this.props.user.id, productId)
   }
   render() {
     const product = this.props.state
-    // return (
-    //   <div>
-    //     <img src={product.imageUrl} />
-    //     <h2>{product.name}</h2>
-    //     <div>Description: {product.description}</div>
-    //     <div>Price: {`$${product.price}`}</div>
-    //     <div>Qty: {product.quantity}</div>
-    //     <button
-    //       type="button"
-    //       onClick={() => this.handleAddToCart(product.id)}
-    //     >
-    //       Add to cart
-    //     </button>
-    //   </div>
-    // )
 
     return (
-      <Card className="text-center singleProduct shadow p-3 mb-5 bg-white rounded">
-        <Row>
-          <Col className="col-6">
-            <CardImg top src={product.imageUrl} alt="Card image cap" />
-          </Col>
-          <Col>
-            <CardBody>
-              <CardTitle>
-                <h2>{product.name}</h2>
-              </CardTitle>
-              <CardText>{`${product.description}`}</CardText>
-              <CardText>{`$${product.price / 100}`}</CardText>
+      <div className="pageView">
+        <Card className="text-center singleProduct shadow p-3 mb-5 bg-white rounded">
+          <Row>
+            <Col className="col-6">
+              <CardImg top src={product.imageUrl} alt="Card image cap" />
+            </Col>
+            <Col>
+              <CardBody>
+                <CardTitle>
+                  <h2>{product.name}</h2>
+                </CardTitle>
+                <CardText>{`${product.description}`}</CardText>
+                <CardText>{`$${product.price / 100}`}</CardText>
 
-              <Button
-                color="primary"
-                onClick={() => this.handleAddToCart(product.id)}
-              >
-                Add to cart
-              </Button>
-            </CardBody>
-          </Col>
-        </Row>
-      </Card>
+                <Button
+                  color="primary"
+                  onClick={() => this.handleAddToCart(product.id)}
+                >
+                  Add to cart
+                </Button>
+              </CardBody>
+            </Col>
+          </Row>
+        </Card>
+      </div>
     )
   }
 }
