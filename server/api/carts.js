@@ -51,8 +51,13 @@ router.get('/guestCart/:userId/currentCart/', async (req, res, next) => {
       }
     })
 
-    const cart = [].push(order)
-
+    const cart = await Order.findAll({
+      include: {all: true},
+      where: {
+        guestUserId: guestUser[0].dataValues.id,
+        status: 'InProgress'
+      }
+    })
     res.json(cart)
   } catch (err) {
     next(err)
