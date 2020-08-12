@@ -65,7 +65,7 @@ export const logout = () => async dispatch => {
   }
 }
 
-//generate UserId
+//generate guestUserId
 const generateSalt = () => {
   const userId = crypto.randomBytes(16).toString('base64')
   return userId
@@ -77,16 +77,18 @@ const generateSalt = () => {
 export default function(state = defaultUser, action) {
   switch (action.type) {
     case GET_USER:
-      if (!action.user.keys) {
+      if (!action.user.email) {
         if (!window.localStorage.user) {
           const salt = generateSalt()
           window.localStorage.setItem('user', JSON.stringify({id: salt}))
-          window.localStorage.setItem('cart', JSON.stringify({cart: []}))
         }
+        const user = JSON.parse(window.localStorage.user)
+        return user
+      } else {
+        return action.user
       }
-      return action.user
     case REMOVE_USER:
-      return defaultUser
+      return JSON.parse(window.localStorage.user)
     default:
       return state
   }

@@ -18,8 +18,16 @@ const getCart = cart => ({
  */
 export const fetchCart = userId => async dispatch => {
   try {
-    let {data} = await axios.get(`/api/carts/${userId}/currentCart/`)
-    dispatch(getCart(data))
+    if (Number.isInteger(userId)) {
+      let {data} = await axios.get(`/api/carts/${userId}/currentCart/`)
+      dispatch(getCart(data))
+    } else {
+      let {data} = await axios.get(`/api/carts/guestCart/${userId}/currentCart`)
+      dispatch(getCart(data))
+    }
+
+    // let {data} = await axios.get(`/api/carts/${userId}/currentCart/`)
+    // dispatch(getCart(data))
   } catch (error) {
     console.log(error)
   }
@@ -27,7 +35,13 @@ export const fetchCart = userId => async dispatch => {
 
 export const thunkAddCartItem = (userId, productId) => async dispatch => {
   try {
-    await axios.post(`/api/carts/${userId}/currentCart/product/${productId}`)
+    if (Number.isInteger(userId)) {
+      await axios.post(`/api/carts/${userId}/currentCart/product/${productId}`)
+    } else {
+      await axios.post(
+        `/api/carts/guestCart/${userId}/currentCart/product/${productId}`
+      )
+    }
   } catch (error) {
     console.log(error)
   }
@@ -35,7 +49,15 @@ export const thunkAddCartItem = (userId, productId) => async dispatch => {
 
 export const thunkDeleteCartItem = (userId, productId) => async dispatch => {
   try {
-    await axios.delete(`/api/carts/${userId}/currentCart/product/${productId}`)
+    if (Number.isInteger(userId)) {
+      await axios.delete(
+        `/api/carts/${userId}/currentCart/product/${productId}`
+      )
+    } else {
+      await axios.delete(
+        `/api/carts/guestCart/${userId}/currentCart/product/${productId}`
+      )
+    }
     dispatch(fetchCart(userId))
   } catch (error) {
     console.log(error)
@@ -48,9 +70,15 @@ export const thunkUpdateCartItem = (
   quantity
 ) => async dispatch => {
   try {
-    await axios.put(
-      `/api/carts/${userId}/currentCart/product/${productId}/quantity/${quantity}`
-    )
+    if (Number.isInteger(userId)) {
+      await axios.put(
+        `/api/carts/${userId}/currentCart/product/${productId}/quantity/${quantity}`
+      )
+    } else {
+      await axios.put(
+        `/api/carts/guestCart/${userId}/currentCart/product/${productId}/quantity/${quantity}`
+      )
+    }
     dispatch(fetchCart(userId))
   } catch (error) {
     console.log(error)
