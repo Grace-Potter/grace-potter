@@ -8,8 +8,6 @@ import {
   FormGroup,
   Label,
   Input,
-  FormText,
-  Col,
   Card,
   CardBody,
   CardTitle
@@ -22,51 +20,36 @@ const AuthForm = props => {
   const {name, displayName, handleSubmit, error} = props
 
   return (
-    // <div>
-    //   <form onSubmit={handleSubmit} name={name}>
-    //     <div>
-    //       <label htmlFor="email">
-    //         <small>Email</small>
-    //       </label>
-    //       <input name="email" type="text" />
-    //     </div>
-    //     <div>
-    //       <label htmlFor="password">
-    //         <small>Password</small>
-    //       </label>
-    //       <input name="password" type="password" />
-    //     </div>
-    //     <div>
-    //       <button type="submit">{displayName}</button>
-    //     </div>
-    //     {error && error.response && <div> {error.response.data} </div>}
-    //   </form>
-    //   <a href="/auth/google">{displayName} with Google</a>
-    // </div>
-    <Card className="auth shadow p-3 mb-5 bg-white rounded">
-      <CardBody>
-        <CardTitle>
-          <h4>{displayName}</h4>
-        </CardTitle>
-        <Form onSubmit={handleSubmit} name={name}>
-          <FormGroup>
-            <Label htmlFor="email">Email</Label>
-            <Input type="email" name="email" placeholder="example@email.com" />
-          </FormGroup>
-          <FormGroup>
-            <Label htmlFor="password">Password</Label>
-            <Input type="password" name="password" placeholder="1Jdhyw3uaB" />
-          </FormGroup>
-          <FormGroup>
-            <Button type="submit">Submit</Button>
-          </FormGroup>
-          <FormGroup>
-            <a href="/auth/google">{displayName} with Google</a>
-          </FormGroup>
-          {error && error.response && <div> {error.response.data} </div>}
-        </Form>
-      </CardBody>
-    </Card>
+    <div className="pageView">
+      <Card className="auth shadow p-3 mb-5 bg-white rounded">
+        <CardBody>
+          <CardTitle>
+            <h4>{displayName}</h4>
+          </CardTitle>
+          <Form onSubmit={handleSubmit} name={name}>
+            <FormGroup>
+              <Label htmlFor="email">Email</Label>
+              <Input
+                type="email"
+                name="email"
+                placeholder="example@email.com"
+              />
+            </FormGroup>
+            <FormGroup>
+              <Label htmlFor="password">Password</Label>
+              <Input type="password" name="password" placeholder="1Jdhyw3uaB" />
+            </FormGroup>
+            <FormGroup>
+              <Button type="submit">Submit</Button>
+            </FormGroup>
+            <FormGroup>
+              <a href="/auth/google">{displayName} with Google</a>
+            </FormGroup>
+            {error && error.response && <div> {error.response.data} </div>}
+          </Form>
+        </CardBody>
+      </Card>
+    </div>
   )
 }
 

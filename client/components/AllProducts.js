@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import {Dropdown, FilteredProducts} from './index'
 import {fetchProducts, fetchCategories} from '../store/index'
 import {Link} from 'react-router-dom'
+import {Button, Row} from 'reactstrap'
 
 export class AllProducts extends React.Component {
   constructor() {
@@ -33,7 +34,7 @@ export class AllProducts extends React.Component {
     })
 
     return (
-      <div className="background">
+      <div className="pageView">
         <header>
           <h3>{this.state.category}</h3>
 
@@ -44,9 +45,13 @@ export class AllProducts extends React.Component {
           />
 
           {this.props.fromPortal && (
-            <Link to="/admin-portal/manageproducts/addproduct">
-              <button type="button">Add Product</button>
-            </Link>
+            <Row>
+              <Link to="/admin-portal/manageproducts/addproduct">
+                <Button type="button" className="indent">
+                  Add Product
+                </Button>
+              </Link>
+            </Row>
           )}
         </header>
         <FilteredProducts

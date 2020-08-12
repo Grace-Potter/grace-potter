@@ -11,7 +11,7 @@ class AddProduct extends React.Component {
       description: '',
       price: 0,
       quantity: 0,
-      imageUrl: '',
+      imageUrl: ''
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -19,7 +19,7 @@ class AddProduct extends React.Component {
 
   handleChange(event) {
     this.setState({
-      [event.target.name]: event.target.value,
+      [event.target.name]: event.target.value
     })
   }
 
@@ -28,7 +28,7 @@ class AddProduct extends React.Component {
 
     // don't include optional fields that have been left blank
     const product = Object.keys(this.state)
-      .filter((key) => !!this.state[key])
+      .filter(key => !!this.state[key])
       .reduce((obj, key) => {
         obj[key] = this.state[key]
         return obj
@@ -46,7 +46,7 @@ class AddProduct extends React.Component {
   render() {
     return (
       <div>
-        <h1>Create a new product listing</h1>
+        <h3>Create a new product listing</h3>
         <ProductForm
           handleSubmit={this.handleSubmit}
           handleChange={this.handleChange}
@@ -57,8 +57,8 @@ class AddProduct extends React.Component {
   }
 }
 
-const mapDispatch = (dispatch) => ({
-  addProduct: (product) => dispatch(postProduct(product)),
+const mapDispatch = dispatch => ({
+  addProduct: product => dispatch(postProduct(product))
 })
 
 export default connect(null, mapDispatch)(AddProduct)

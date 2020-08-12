@@ -64,13 +64,6 @@ const createApp = () => {
   app.use((req, res, next) => {
     if (!req.session.cookie.isLoggedIn) {
       req.session.cookie.isLoggedIn = false
-      if (!req.session.cookie.guestId) {
-        //req.session.cookie.guestId = generateGuestId()
-      } else {
-        //use req.ression.cookie.guestId
-      }
-    } else {
-      //use OAuth credentials or signup credentials
     }
     req.session.cookie.isLoggedIn = false
     req.session.cookie.guestId = null
