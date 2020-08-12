@@ -14,8 +14,6 @@ const FilteredProducts = props => {
 
   const paginate = pageNumber => setCurrentPage(pageNumber)
 
-  console.log(props.products.length)
-
   return (
     <main>
       <ProductList products={products} fromPortal={fromPortal} />
